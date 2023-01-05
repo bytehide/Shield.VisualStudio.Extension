@@ -23,7 +23,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Dotnetsafer Shield Enable</ButtonText>
+          <ButtonText>ByteHide Shield Enable</ButtonText>
         </Strings>
       </Button>
 
@@ -34,7 +34,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Dotnetsafer Shield Configuration</ButtonText>
+          <ButtonText>ByteHide Shield Configuration</ButtonText>
         </Strings>
       </Button>
       

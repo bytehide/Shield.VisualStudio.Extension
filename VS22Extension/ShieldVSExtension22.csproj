@@ -174,8 +174,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shield.VSIX\Shield.Client\Client\Shield.Client.csproj">
-      <Project>{4a3b982f-00fe-4425-945f-9ad9d2adb2aa}</Project>
+    <ProjectReference Include="..\Shield.VSIX\Shield.Dotnet.Client\Client\Shield.Client.csproj">
+      <Project>{acc0b1a6-e947-428e-a8e0-edffcda6d604}</Project>
       <Name>Shield.Client</Name>
     </ProjectReference>
   </ItemGroup>

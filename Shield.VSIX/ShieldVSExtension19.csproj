@@ -206,8 +206,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Shield.Client\Client\Shield.Client.csproj">
-      <Project>{4A3B982F-00FE-4425-945F-9AD9D2ADB2AA}</Project>
+    <ProjectReference Include="Shield.Dotnet.Client\Client\Shield.Client.csproj">
+      <Project>{acc0b1a6-e947-428e-a8e0-edffcda6d604}</Project>
       <Name>Shield.Client</Name>
     </ProjectReference>
   </ItemGroup>
