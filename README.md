@@ -1,0 +1,2 @@
+# Shield.VisualStudio.Extension
+ 
