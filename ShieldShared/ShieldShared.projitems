@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>cfd87565-4b8c-4701-a6dd-e3ac5740dd7a</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ShieldShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ConfigurationWindowCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\Enable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ProjectConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ProjectPreset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShieldExtensionConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\SolutionConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\BuildOutputFileTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Guids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DevHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DTE2Helper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnvDTECodeModelLanguageConstants2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnvDTEProjectKinds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectItemExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\PropertyExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\CustomLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\DefaultLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\ISecureLocalStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\ISecureLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\SecureLocalStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Services.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShieldVSExtensionPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindowControl.xaml.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\CountToBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\StringToBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI Extensions\ConfigurationViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\1024x1024 Icon 1 Png.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\StatusSecurityWarning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Simple Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindowControl.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>
