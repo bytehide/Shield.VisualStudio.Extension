@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Web.UI.WebControls;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
 using NuGet;
@@ -18,11 +17,15 @@ public partial class MainWindowControl
 {
     // private const string ExtensionConfigurationFile = "ExtensionConfiguration";
     private readonly MainViewModel _vm;
+    // private Application _app;
 
     public MainWindowControl(MainViewModel vm)
     {
         InitializeMaterialDesign();
         InitializeComponent();
+
+        // _app = Application.Current;
+        // _app.Exit += OnExit;
 
         _vm = vm;
         DataContext = vm;
@@ -69,8 +72,12 @@ public partial class MainWindowControl
         }
     }
 
-    private void OnClose(object sender, RoutedEventArgs e)
-    {
-        // if (sender is not Button { IsInitialized: true } control) return;
-    }
+    // private void OnClose(object sender, RoutedEventArgs e)
+    // {
+    //     var frame = (IVsWindowFrame)Frame;
+    //      if (frame != null)
+    //      {
+    //          frame.CloseFrame((uint) __FRAMECLOSE.FRAMECLOSE_NoSave);
+    //      }
+    // }
 }

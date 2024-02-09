@@ -353,7 +353,8 @@ public sealed class MainViewModel : ViewModelBase
         Projects = projects;
         ProjectPresets =
         [
-            new ProjectPreset { Id = 1, Name = "Maximum" }, new ProjectPreset { Id = 2, Name = "Balance" },
+            new ProjectPreset { Id = 1, Name = "Maximum" }, 
+            new ProjectPreset { Id = 2, Name = "Balance" },
             new ProjectPreset { Id = 3, Name = "Optimized" }
         ];
         ProjectEditions =
@@ -374,13 +375,19 @@ public sealed class MainViewModel : ViewModelBase
         IsValidClient = false;
 
         if (string.IsNullOrEmpty(ShieldProjectName))
+        {
             ShieldProjectName = Path.GetFileNameWithoutExtension(dte.Solution.FileName);
+        }
 
         if (dte.Solution.SolutionBuild.StartupProjects is object[] startupProjects)
         {
             var startupProject = startupProjects.OfType<string>().FirstOrDefault();
             if (startupProject != null)
-                SelectedProject = Projects.FirstOrDefault(p => p.Project.UniqueName == startupProject);
+                SelectedProject = Projects.FirstOrDefault(p =>
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    return p.Project.UniqueName == startupProject;
+                });
         }
 
         SelectedProject ??= Projects.FirstOrDefault();

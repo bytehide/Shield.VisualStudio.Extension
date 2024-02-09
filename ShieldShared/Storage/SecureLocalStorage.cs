@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using ShieldVSExtension.Storage.Interfaces;
 
 namespace ShieldVSExtension.Storage;
@@ -27,6 +28,7 @@ public class SecureLocalStorage : ISecureLocalStorage
         Config = configuration ?? throw new ArgumentNullException(nameof(configuration));
         CreateIfNotExists(Config.StoragePath);
         Key = Encoding.UTF8.GetBytes(Config.BuildLocalSecureKey());
+        // ReadAsync().GetAwaiter();
         Read();
     }
 
@@ -69,6 +71,36 @@ public class SecureLocalStorage : ISecureLocalStorage
             }
 
             var buffer = File.ReadAllBytes(source);
+            var payload = DecryptData(buffer, Key, DataProtectionScope.LocalMachine);
+
+            StoredData = string.IsNullOrEmpty(payload)
+                ? []
+                : JsonSerializer.Deserialize<Dictionary<string, string>>(payload);
+        }
+        catch (Exception)
+        {
+            StoredData = [];
+        }
+    }
+
+    internal async Task ReadAsync()
+    {
+        try
+        {
+            var source = Path.Combine(Config.StoragePath, "default");
+            if (!File.Exists(source) || new FileInfo(source).Length == 0)
+            {
+                StoredData = [];
+                return;
+            }
+
+            byte[] buffer;
+            using (FileStream stream = new(source, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
+            {
+                buffer = new byte[stream.Length];
+                await stream.ReadAsync(buffer, 0, buffer.Length);
+            }
+
             var payload = DecryptData(buffer, Key, DataProtectionScope.LocalMachine);
 
             StoredData = string.IsNullOrEmpty(payload)
