@@ -32,7 +32,7 @@ public partial class MainWindowControl
 
     private void InitializeMaterialDesign()
     {
-        _ = new MahApps.Metro.Controls.MetroWindow();
+        // _ = new MahApps.Metro.Controls.MetroWindow();
         _ = new Card();
     }
 
