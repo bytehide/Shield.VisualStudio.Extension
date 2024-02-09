@@ -98,7 +98,7 @@
                     <GradientStop Color="Transparent" Offset="0.1" />
                     <GradientStop Color="#000000" Offset="1" />
                 </LinearGradientBrush>
-            </Grid.OpacityMask-->>
+            </Grid.OpacityMask>-->
 
         </Grid>
 
