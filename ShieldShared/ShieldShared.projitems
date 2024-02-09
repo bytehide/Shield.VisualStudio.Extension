@@ -9,55 +9,180 @@
     <Import_RootNamespace>ShieldShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Commands\ConfigurationWindowCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\Enable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ProjectConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ProjectPreset.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShieldExtensionConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configuration\SolutionConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Contracts\BuildOutputFileTypes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Guids.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DevHelpers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DTE2Helper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnvDTECodeModelLanguageConstants2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnvDTEProjectKinds.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProjectItemExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\PropertyExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Ids.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\CustomLocalStorageConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\DefaultLocalStorageConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\ISecureLocalStorage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\ISecureLocalStorageConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InternalSecureStorage\SecureLocalStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\Guids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\Ids.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\MainWindowCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ApiPath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\BooleanToColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\CountToBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\StringToBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\ValueConverterGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Delegates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\DirectoryInfoExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\PresetExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\ProjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\ProjectItemExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\PropertyExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\StringExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\FileManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Globals.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\JsonHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\NugetHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Models\ProtectionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Models\ShieldConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PasswordBoxAssistant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\CoreService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\HttpX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\ProtectionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Services.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Structures.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Validators\ProjectTokenValidationRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ProjectConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ProjectPreset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\ShieldExtensionConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Configuration\SolutionConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Contracts\BuildOutputFileTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\DevHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\DTE2Helper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\EnvDTECodeModelLanguageConstants2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Helpers\EnvDTEProjectKinds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\CustomLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\DefaultLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Interfaces\ISecureLocalStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Interfaces\ISecureLocalStorageConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\SecureLocalStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Services.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShieldVSExtensionPackage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindow.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindowControl.xaml.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\AppWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MainWindowControl.xaml.cs">
+      <DependentUpon>MainWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\CountToBoolConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\StringToBoolConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToolWindows\ValueConverterGroup.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI Extensions\ConfigurationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\ActionBarControl.xaml.cs">
+      <DependentUpon>ActionBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Icons\IconDownloadControl.xaml.cs">
+      <DependentUpon>IconDownloadControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Icons\IconSettingsControl.xaml.cs">
+      <DependentUpon>IconSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\BalanceControl.xaml.cs">
+      <DependentUpon>BalanceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\CustomControl.xaml.cs">
+      <DependentUpon>CustomControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\MaximumControl.xaml.cs">
+      <DependentUpon>MaximumControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\OptimizedControl.xaml.cs">
+      <DependentUpon>OptimizedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\AboutControl.xaml.cs">
+      <DependentUpon>AboutControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\PresetsControl.xaml.cs">
+      <DependentUpon>PresetsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProjectFileViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProjectViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SharedViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\1024x1024 Icon 1 Png.png">
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\1024x1024 Icon 1 Png.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)ToolWindows\StatusSecurityWarning.png">
+    </Resource>
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\StatusSecurityWarning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Simple Styles.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)ToolWindows\ConfigurationWindowControl.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Page Include="$(MSBuildThisFileDirectory)Theme\Button.Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Theme\PasswordBox.Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Theme\TabControl.Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Theme\TextBox.Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Theme\ToggleButton.Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\MainWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\ActionBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Icons\IconDownloadControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Icons\IconSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\BalanceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\CustomControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\MaximumControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\OptimizedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\AboutControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\PresetsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\about-bg.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\balance-bg.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\custom-bg.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\maximum-bg.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\optimized-bg.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\shield.png" />
   </ItemGroup>
 </Project>
