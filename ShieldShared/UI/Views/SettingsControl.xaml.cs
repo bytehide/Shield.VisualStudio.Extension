@@ -29,17 +29,12 @@ public partial class SettingsControl
     public SettingsControl()
     {
         InitializeComponent();
-        Initialized += OnInitialized;
+        Loaded += OnLoaded;
         ViewModelBase.ProjectChangedHandler += OnRefresh;
     }
 
-    private void OnInitialized(object sender, EventArgs e)
-    {
-        // Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
-        LoadDataAsync().GetAwaiter();
-    }
-
-    // private void OnLoaded(object sender, RoutedEventArgs e) => Refresh();
+    private void OnLoaded(object sender, RoutedEventArgs e) => Task.Delay(100).ConfigureAwait(false).GetAwaiter()
+        .OnCompleted(() => LoadDataAsync().GetAwaiter());
 
     private void OnRefresh(ProjectViewModel payload)
     {
@@ -48,13 +43,6 @@ public partial class SettingsControl
         Payload = payload;
         LoadDataAsync().GetAwaiter();
     }
-
-    // private void OnSelected(ETabType tab)
-    // {
-    //     if (tab != ETabType.SettingsTab || Payload == null) return;
-    // 
-    //     Refresh();
-    // }
 
     private async Task LoadDataAsync()
     {
