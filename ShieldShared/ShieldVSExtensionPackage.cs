@@ -286,7 +286,7 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
     {
         Enable.Command.Visible = true;
         // ConfigurationWindowCommand.Command.Visible = true;
-        MainWindowCommand.Command.Visible = true;
+        MainWindowCommand.Command.Visible = true;        
 
         if (Configuration == null)
             Configuration = new ShieldSolutionConfiguration();
@@ -323,7 +323,7 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
         return text;
     }
 
-    public async void BuildEvents_OnBuildProjConfigDone(string projectName, string projectConfig, string platform,
+    public void BuildEvents_OnBuildProjConfigDone(string projectName, string projectConfig, string platform,
         string solutionConfig, bool success)
     {
         _ = JoinableTaskFactory.RunAsync(async delegate
@@ -365,7 +365,11 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
             await WriteLineAsync("Protection operation started...");
 
             var project = Dte.Solution.GetProjects()
-                .FirstOrDefault(p => p.UniqueName == projectConfiguration.ProjectName);
+                .FirstOrDefault(p =>
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    return p.UniqueName == projectConfiguration.ProjectName;
+                });
 
             var sourceDirectory = project.GetFullOutputPath();
 
@@ -574,11 +578,11 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
 
                 ActivePane();
 
-                await ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-                {
-                    // await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                    // await taskConnection.ProtectSingleFileAsync(shieldProject.Key, appBlob, config);
-                });
+                // await ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+                // {
+                //     // await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                //     // await taskConnection.ProtectSingleFileAsync(shieldProject.Key, appBlob, config);
+                // });
             }
             catch (Exception ex)
             {

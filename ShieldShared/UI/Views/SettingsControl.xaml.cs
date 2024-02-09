@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.VisualStudio.Shell;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Extensions;
 using ShieldVSExtension.Common.Helpers;
@@ -26,22 +29,25 @@ public partial class SettingsControl
     public SettingsControl()
     {
         InitializeComponent();
-        // _vm = new SettingsViewModel();
-        // DataContext = _vm;
-
-        Loaded += OnLoaded;
+        Initialized += OnInitialized;
         ViewModelBase.ProjectChangedHandler += OnRefresh;
-        // ViewModelBase.TabSelectedHandler += OnSelected;
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e) => Refresh();
+
+    private void OnInitialized(object sender, EventArgs e)
+    {
+        // Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
+        LoadDataAsync().GetAwaiter();
+    }
+
+    // private void OnLoaded(object sender, RoutedEventArgs e) => Refresh();
 
     private void OnRefresh(ProjectViewModel payload)
     {
         if (payload == null) return;
 
         Payload = payload;
-        Refresh();
+        LoadDataAsync().GetAwaiter();
     }
 
     // private void OnSelected(ETabType tab)
@@ -51,11 +57,11 @@ public partial class SettingsControl
     //     Refresh();
     // }
 
-    private void Refresh()
+    private async Task LoadDataAsync()
     {
         if (Payload == null) return;
 
-        Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+        await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());

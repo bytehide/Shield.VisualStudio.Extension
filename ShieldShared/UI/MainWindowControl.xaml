@@ -194,7 +194,7 @@
                 <views:AboutControl />
             </TabItem>
 
-            <TabItem>
+            <!--<TabItem>
                 <TabItem.Header>
                     <Button Click="OnClose"
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
@@ -203,7 +203,7 @@
                         </StackPanel>
                     </Button>
                 </TabItem.Header>
-            </TabItem>
+            </TabItem>-->
 
         </TabControl>
         <!-- </materialDesign:Card> -->
