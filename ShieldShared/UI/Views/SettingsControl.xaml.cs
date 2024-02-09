@@ -33,7 +33,6 @@ public partial class SettingsControl
         ViewModelBase.ProjectChangedHandler += OnRefresh;
     }
 
-
     private void OnInitialized(object sender, EventArgs e)
     {
         // Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
