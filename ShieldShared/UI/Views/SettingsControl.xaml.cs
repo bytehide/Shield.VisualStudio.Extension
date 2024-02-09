@@ -29,16 +29,22 @@ public partial class SettingsControl
     public SettingsControl()
     {
         InitializeComponent();
-        Initialized += OnInitialized;
+        // Initialized += OnInitialized;
+        Loaded += OnLoaded;
         ViewModelBase.ProjectChangedHandler += OnRefresh;
     }
 
-
-    private void OnInitialized(object sender, EventArgs e)
+    private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
-        LoadDataAsync().GetAwaiter();
+        Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
+        // LoadDataAsync().GetAwaiter();
     }
+
+    // private void OnInitialized(object sender, EventArgs e)
+    // {
+    //     // Task.Delay(3000).ConfigureAwait(false).GetAwaiter().OnCompleted(() => LoadDataAsync().GetAwaiter());
+    //     LoadDataAsync().GetAwaiter();
+    // }
 
     // private void OnLoaded(object sender, RoutedEventArgs e) => Refresh();
 
