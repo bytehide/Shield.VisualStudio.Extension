@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Web.UI.WebControls;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
 using NuGet;
@@ -66,5 +67,10 @@ public partial class MainWindowControl
 
             ViewModelBase.VsixVersionHandler.Invoke(info);
         }
+    }
+
+    private void OnClose(object sender, RoutedEventArgs e)
+    {
+        // if (sender is not Button { IsInitialized: true } control) return;
     }
 }

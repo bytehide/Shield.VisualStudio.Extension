@@ -39,11 +39,14 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <!--<WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="40" GlassFrameThickness="0" ResizeBorderThickness="4" />
+    <!--
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" 
+                      GlassFrameThickness="0" 
+                      ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>-->
 
-    <Grid>
+    <Grid Background="Black">
         <!-- <materialDesign:Card> -->
         <TabControl x:Name="TabControl"
                     materialDesign:ColorZoneAssist.Mode="Dark"
@@ -191,15 +194,16 @@
                 <views:AboutControl />
             </TabItem>
 
-            <!--<TabItem>
+            <TabItem>
                 <TabItem.Header>
-                    <Button Command="SystemCommands.CloseWindowCommand" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Button Click="OnClose"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="CloseCircleOutline" />
                         </StackPanel>
                     </Button>
                 </TabItem.Header>
-            </TabItem>-->
+            </TabItem>
 
         </TabControl>
         <!-- </materialDesign:Card> -->
