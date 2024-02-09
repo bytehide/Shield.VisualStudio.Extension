@@ -59,17 +59,26 @@ public class SecureLocalStorage : ISecureLocalStorage
 
     internal void Read()
     {
-        var payload = DecryptData(File.ReadAllBytes(Path.Combine(Config.StoragePath, "default")), Key,
-            DataProtectionScope.LocalMachine);
-        if (payload == string.Empty)
+        try
         {
-            StoredData = new Dictionary<string, string>();
-            return;
-        }
+            var source = Path.Combine(Config.StoragePath, "default");
+            if (!File.Exists(source) || new FileInfo(source).Length == 0)
+            {
+                StoredData = [];
+                return;
+            }
 
-        StoredData = File.Exists(Path.Combine(Config.StoragePath, "default"))
-            ? JsonSerializer.Deserialize<Dictionary<string, string>>(payload)
-            : [];
+            var buffer = File.ReadAllBytes(source);
+            var payload = DecryptData(buffer, Key, DataProtectionScope.LocalMachine);
+
+            StoredData = string.IsNullOrEmpty(payload)
+                ? []
+                : JsonSerializer.Deserialize<Dictionary<string, string>>(payload);
+        }
+        catch (Exception)
+        {
+            StoredData = [];
+        }
     }
 
     internal void Write()
