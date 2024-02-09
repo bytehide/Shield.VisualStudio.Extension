@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ShieldVSExtension.ViewModels"
              xmlns:construction="clr-namespace:Microsoft.Build.Construction;assembly=Microsoft.Build"
              d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel, IsDesignTimeCreatable=True}"
@@ -50,7 +49,6 @@
                 </TextBlock>
 
                 <ToggleButton x:Name="StatusToggle"
-                              Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
                               IsChecked="{Binding Payload.IsEnabled, Mode=TwoWay}"
                               ToolTip="Enabled"
                               Margin="5,0,0,0"
@@ -63,10 +61,8 @@
             <!-- SelectedItem="{Binding Payload.Project.ConfigurationManager.ActiveConfiguration.ConfigurationName, Mode=OneTime}" -->
             <!-- SelectedValue="{Binding Payload.Project.ConfigurationManager.ActiveConfiguration.ConfigurationName, Mode=OneTime}" -->
             <ComboBox x:Name="ProjectRunCombo"
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
                       ItemsSource="{Binding Payload.Project.ConfigurationManager}"
                       Width="256"
-                      materialDesign:HintAssist.Hint="Run Configuration"
                       Margin="20,0,0,30"
                       HorizontalAlignment="Left">
 
@@ -83,8 +79,6 @@
                 <ComboBoxItem Content="Debug" />-->
 
             <TextBox x:Name="ProjectNameBox"
-                     materialDesign:HintAssist.Hint="Enter your project name"
-                     materialDesign:TextFieldAssist.CharacterCounterVisibility="Visible"
                      Style="{StaticResource OutlinedTextFieldTextBoxStyle}"
                      Margin="20,0,20,30" />
 
@@ -92,9 +86,6 @@
             <!-- Style="{StaticResource FloatingHintPasswordBoxStyle}" -->
             <!-- DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" -->
             <TextBox x:Name="ProjectTokenBox"
-                     materialDesign:HintAssist.Hint="Enter your project token"
-                     materialDesign:HintAssist.HelperText="Required*"
-                     materialDesign:TextFieldAssist.CharacterCounterVisibility="Visible"
                      Style="{StaticResource OutlinedTextFieldTextBoxStyle}"
                      Margin="20,0,20,30"
                      TextChanged="ProjectTokenBoxOnChanged">
@@ -112,8 +103,6 @@
 
 
             <PasswordBox x:Name="SecretBox"
-                         materialDesign:HintAssist.Hint="Enter your protection secret"
-                         materialDesign:TextFieldAssist.CharacterCounterVisibility="Visible"
                          Style="{StaticResource FloatingHintPasswordBoxStyle}"
                          Margin="20,0,20,30" />
 

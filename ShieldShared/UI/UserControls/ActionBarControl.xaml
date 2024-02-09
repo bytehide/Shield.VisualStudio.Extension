@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:ShieldVSExtension.Common.Converters"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="800">
@@ -34,12 +33,12 @@
               Height="50"
               Row="1">
 
-            <Grid.OpacityMask>
+            <!--<Grid.OpacityMask>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Transparent" Offset="0.1" />
                     <GradientStop Color="#000000" Offset="1" />
                 </LinearGradientBrush>
-            </Grid.OpacityMask>
+            </Grid.OpacityMask>-->
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -56,16 +55,17 @@
             <ProgressBar x:Name="LoaderControl"
                          Visibility="Collapsed"
                          Grid.Column="0"
-                         Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Value="0"
                          IsIndeterminate="True"
                          Margin="3 3 10 10"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Right" />
 
+            <!-- Visibility="{Binding Path=IsVisible, ElementName=LoaderControl, Converter={StaticResource InverseBooleanToVisibilityConverter}}" -->
+
             <ToggleButton x:Name="ActiveButton"
-                          Visibility="{Binding Path=IsVisible, ElementName=LoaderControl, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                           Style="{StaticResource ToggleButtonFilterStyle}"
+                          Visibility="Collapsed"
                           Grid.Column="1"
                           Width="28"
                           Height="28"
@@ -76,11 +76,11 @@
                           Checked="ActiveOnChanged"
                           Unchecked="ActiveOnChanged">
 
-                <materialDesign:PackIcon Kind="ShieldHalfFull"
+                <!--<materialDesign:PackIcon Kind="ShieldHalfFull"
                                          Foreground="{Binding Path=IsChecked, ElementName=ActiveButton, Converter={StaticResource BooleanToColorConverter}, ConverterParameter='MediumSpringGreen, Crimson'}"
                                          Focusable="False"
                                          Height="22"
-                                         Width="22" />
+                                         Width="22" />-->
 
             </ToggleButton>
         </Grid>
@@ -92,12 +92,13 @@
               Background="{Binding IsChecked, ElementName=ActiveButton, Converter={StaticResource BooleanToColorConverter}, ConverterParameter='MediumSpringGreen, Crimson'}"
               Height="5">
 
+            <!--
             <Grid.OpacityMask>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Transparent" Offset="0.1" />
                     <GradientStop Color="#000000" Offset="1" />
                 </LinearGradientBrush>
-            </Grid.OpacityMask>
+            </Grid.OpacityMask-->>
 
         </Grid>
 
@@ -112,12 +113,12 @@
               Background="Crimson"
               Height="40">
 
-            <Grid.OpacityMask>
+            <!--<Grid.OpacityMask>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Transparent" Offset="0.1" />
                     <GradientStop Color="#000000" Offset="1" />
                 </LinearGradientBrush>
-            </Grid.OpacityMask>
+            </Grid.OpacityMask>-->
 
             <!--<TextBlock Text="{Binding Payload.Installed}"
                        Margin="10 0"

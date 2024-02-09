@@ -37,7 +37,6 @@
                     <DataTemplate DataType="{x:Type models:ProtectionModel}">
                         <Grid Margin="0,0">
                             <CheckBox VerticalAlignment="Center"
-                                      Style="{StaticResource MaterialDesignFilterChipOutlineCheckBox}"
                                       IsChecked="{Binding IsSelected}"
                                       Content="{Binding Name}"
                                       IsEnabled="{Binding IsEnabled}"

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -17,19 +16,12 @@
 
     <Grid>
         <StackPanel>
-            <materialDesign:PackIcon Kind="DownloadCircleOutline"
+            <!--<materialDesign:PackIcon Kind="DownloadCircleOutline"
                                      ToolTip="Need to download ByteHide Shield Integration"
                                      Cursor="Hand"
                                      Foreground="DarkOrange"
                                      Background="Transparent"
                                      PreviewMouseLeftButtonDown="OnMouseLeftButtonDown">
-
-                <!--<i:Interaction.Triggers>
-                    <b:EventTrigger x:Name="Trigger" EventName="MouseLeftButtonDown">
-                        <b:InvokeCommandAction Command="{Binding Path=OpenQrCommand}" />
-                        <b:InvokeCommandAction CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                    </b:EventTrigger>
-                </i:Interaction.Triggers>-->
 
                 <materialDesign:PackIcon.Style>
                     <Style TargetType="materialDesign:PackIcon">
@@ -41,7 +33,7 @@
                         </Style.Triggers>
                     </Style>
                 </materialDesign:PackIcon.Style>
-            </materialDesign:PackIcon>
+            </materialDesign:PackIcon>-->
         </StackPanel>
     </Grid>
 </UserControl>

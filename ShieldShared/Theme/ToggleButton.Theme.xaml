@@ -1,13 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ResourceDictionary.MergedDictionaries>
+    <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary
             Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.togglebutton.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary.MergedDictionaries>-->
 
-    <Style x:Key="ToggleButtonFilterStyle" TargetType="ToggleButton"
-           BasedOn="{StaticResource MaterialDesignFlatPrimaryToggleButton}">
+    <Style x:Key="ToggleButtonFilterStyle" TargetType="ToggleButton">
         <Setter Property="Foreground" Value="#ffffff" />
         <Setter Property="Background" Value="#000000" />
         <Setter Property="Cursor" Value="Hand" />

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -21,8 +20,7 @@
           VerticalAlignment="Stretch">
 
         <Grid.Background>
-            <ImageBrush ImageSource="/ShieldVSExtension;component/Resources/about-bg.png"
-                        Opacity="0.3" />
+            <ImageBrush ImageSource="/ShieldVSExtension;component/Resources/about-bg.png" />
 
         </Grid.Background>
 
@@ -42,15 +40,13 @@
                     Margin="0 0 0 0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Click="ButtonSiteOnClick">
-                <materialDesign:PackIcon Kind="Web" Width="20" Height="20" />
+                <!-- <materialDesign:PackIcon Kind="Web" Width="20" Height="20" /> -->
             </Button>
 
             <Button x:Name="ButtonTwitter"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Height="32"
                     Width="32"
                     Margin="0 0 0 0"
@@ -59,7 +55,7 @@
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Click="ButtonTwitterOnClick">
-                <materialDesign:PackIcon Kind="Twitter" Width="20" Height="20" />
+                <!--<materialDesign:PackIcon Kind="Twitter" Width="20" Height="20" />-->
             </Button>
 
         </StackPanel>
@@ -79,7 +75,6 @@
                             Grid.Row="0">
 
                     <TextBlock x:Name="VersionBox"
-                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                Margin="0 0 40 0"
                                Text="Version 2.0.0"
                                TextAlignment="Right"
@@ -93,15 +88,14 @@
                             Margin="40 100 40 0"
                             Grid.Row="0">
 
+                    <!-- Background="Transparent" -->
                     <RichTextBox Height="350"
                                  AcceptsReturn="True"
                                  IsDocumentEnabled="False"
                                  IsReadOnly="True"
                                  VerticalScrollBarVisibility="Hidden"
-                                 Background="Transparent"
                                  Opacity="0.8"
                                  Foreground="White"
-                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                  SpellCheck.IsEnabled="False"
                                  BorderThickness="0">
                         <FlowDocument>
@@ -124,7 +118,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="/ShieldVSExtension;component/Resources/bytehide-logo.png"
+                                    <Image Source="/ShieldVSExtension;component/Resources/shield.png"
                                            Width="20"
                                            Height="Auto"
                                            Stretch="Uniform"

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Windows;
-using MaterialDesignThemes.Wpf;
 using NuGet;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
@@ -20,7 +19,7 @@ public partial class MainWindowControl
 
     public MainWindowControl(MainViewModel vm)
     {
-        InitializeMaterialDesign();
+        // InitializeMaterialDesign();
         InitializeComponent();
 
         _vm = vm;
@@ -30,11 +29,11 @@ public partial class MainWindowControl
         ViewModelBase.IsMsbuilderInstalledHandler += OnInstalled;
     }
 
-    private void InitializeMaterialDesign()
-    {
-        // _ = new MahApps.Metro.Controls.MetroWindow();
-        _ = new Card();
-    }
+    // private void InitializeMaterialDesign()
+    // {
+    //     // _ = new MahApps.Metro.Controls.MetroWindow();
+    //     _ = new Card();
+    // }
 
     private void OnInstalled(bool installed)
     {

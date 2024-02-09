@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              xmlns:viewModels="clr-namespace:ShieldVSExtension.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewModels:ProjectViewModel, IsDesignTimeCreatable=True}"
@@ -28,17 +26,17 @@
     <!-- DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" -->
     <Grid>
         <StackPanel>
-            <materialDesign:PackIcon Kind="GearOutline"
+            <!--<materialDesign:PackIcon Kind="GearOutline"
                                      ToolTip="Settings"
                                      Cursor="Hand"
                                      Background="Transparent">
 
-                <b:Interaction.Triggers>
+                <visualBasic:Interaction.Triggers>
                     <b:EventTrigger x:Name="Trigger" EventName="MouseLeftButtonDown">
                         <b:InvokeCommandAction Command="{Binding CheckProjectCommand}" />
                         <b:InvokeCommandAction CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
                     </b:EventTrigger>
-                </b:Interaction.Triggers>
+                </visualBasic:Interaction.Triggers>
 
                 <materialDesign:PackIcon.Style>
                     <Style TargetType="materialDesign:PackIcon">
@@ -50,7 +48,7 @@
                         </Style.Triggers>
                     </Style>
                 </materialDesign:PackIcon.Style>
-            </materialDesign:PackIcon>
+            </materialDesign:PackIcon>-->
         </StackPanel>
     </Grid>
 </UserControl>
