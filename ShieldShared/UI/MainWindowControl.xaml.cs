@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using NuGet;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
@@ -47,6 +52,8 @@ public partial class MainWindowControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        AppNameBox.Text = Globals.AppName;
+
         ViewModelBase.ProjectChangedHandler.Invoke(_vm.Projects.FirstOrDefault());
 
         CheckVersionAsync().GetAwaiter();
@@ -72,12 +79,9 @@ public partial class MainWindowControl
         }
     }
 
-    // private void OnClose(object sender, RoutedEventArgs e)
-    // {
-    //     var frame = (IVsWindowFrame)Frame;
-    //      if (frame != null)
-    //      {
-    //          frame.CloseFrame((uint) __FRAMECLOSE.FRAMECLOSE_NoSave);
-    //      }
-    // }
+    private void OnClose(object sender, RoutedEventArgs e)
+    {
+        var window = GetWindow(this);
+        window?.Close();
+    }
 }

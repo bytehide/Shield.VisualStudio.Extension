@@ -70,16 +70,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Icons\IconSettingsControl.xaml.cs">
       <DependentUpon>IconSettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\BalanceControl.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\Presets\BalanceControl.xaml.cs">
       <DependentUpon>BalanceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\CustomControl.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\Presets\CustomControl.xaml.cs">
       <DependentUpon>CustomControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\MaximumControl.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\Presets\MaximumControl.xaml.cs">
       <DependentUpon>MaximumControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\OptimizedControl.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Views\Presets\OptimizedControl.xaml.cs">
       <DependentUpon>OptimizedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UI\Views\AboutControl.xaml.cs">
@@ -148,19 +148,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\BalanceControl.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\Presets\BalanceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\CustomControl.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\Presets\CustomControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\MaximumControl.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\Presets\MaximumControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UI\UserControls\Presets\OptimizedControl.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)UI\Views\Presets\OptimizedControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

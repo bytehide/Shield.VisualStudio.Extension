@@ -15,7 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Background="#111111"
+        Background="#232323"
         WindowStartupLocation="CenterScreen"
         Focusable="True"
         Title="ByteHide Shield"
@@ -39,14 +39,30 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <!--
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="SystemCommands.CloseWindowCommand" Executed="CloseCommandHandler" />
+    </Window.CommandBindings>-->
+
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="40" 
-                      GlassFrameThickness="0" 
-                      ResizeBorderThickness="4" />
-    </WindowChrome.WindowChrome>-->
+        <WindowChrome CaptionHeight="30"
+                      GlassFrameThickness="0"
+                      ResizeBorderThickness="0" />
+    </WindowChrome.WindowChrome>
+
 
     <Grid Background="Black">
+        <!--<Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="Transparent" Offset="1"/>
+                <GradientStop Color="Black" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>-->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <!-- <materialDesign:Card> -->
         <TabControl x:Name="TabControl"
                     materialDesign:ColorZoneAssist.Mode="Dark"
@@ -58,7 +74,6 @@
                     HorizontalContentAlignment="Right"
                     TabStripPlacement="Bottom">
 
-            <!-- Pestaña 1 -->
             <TabItem Margin="5">
                 <TabItem.Header>
                     <StackPanel Width="auto" Height="auto">
@@ -72,8 +87,27 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" Text="Projects" VerticalAlignment="Top"
-                               FontSize="12" Margin="10,20,0,0" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="/ShieldVSExtension;component/Resources/shield.png" 
+                               Grid.Column="0"
+                               Margin="10"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Height="20"
+                               Width="20"/>
+
+                        <TextBlock x:Name="AppNameBox"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   FontSize="12"
+                                   Margin="2,14,0,0" />
+                    </Grid>
 
                     <ListBox Grid.Column="0"
                              x:Name="ApplicationsList"
@@ -86,7 +120,7 @@
                              Background="{x:Null}"
                              BorderBrush="{x:Null}"
                              Foreground="DarkGray"
-                             Margin="1,48,5,2"
+                             Margin="1,70,5,2"
                              RenderTransformOrigin="0.5,0.5"
                              FontSize="13"
                              Width="200">
@@ -194,18 +228,22 @@
                 <views:AboutControl />
             </TabItem>
 
-            <!--<TabItem>
+            <TabItem materialDesign:RippleAssist.IsDisabled="True">
                 <TabItem.Header>
                     <Button Click="OnClose"
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                         <StackPanel Width="auto" Height="auto">
-                            <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="CloseCircleOutline" />
+                            <materialDesign:PackIcon Width="18" 
+                                                     Height="18" 
+                                                     HorizontalAlignment="Center"
+                                                     Kind="ExitToApp" />
                         </StackPanel>
                     </Button>
                 </TabItem.Header>
-            </TabItem>-->
+            </TabItem>
 
         </TabControl>
+
         <!-- </materialDesign:Card> -->
     </Grid>
 

@@ -22,7 +22,7 @@
 
         <Grid.Background>
             <ImageBrush ImageSource="/ShieldVSExtension;component/Resources/about-bg.png"
-                        Opacity="0.3" />
+                        Opacity="0.6" />
 
         </Grid.Background>
 
@@ -33,7 +33,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal"
-                    Margin="15 10 0 0"
+                    Margin="20 20 0 0"
                     Grid.Row="0">
 
             <Button x:Name="ButtonSite"
@@ -115,7 +115,6 @@
                                        Stretch="Uniform"
                                        RenderOptions.BitmapScalingMode="HighQuality" />
                             </BlockUIContainer>
-
 
                             <Paragraph TextAlignment="Center">
                                 <Grid HorizontalAlignment="Center">

@@ -31,7 +31,7 @@
         <!-- DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" -->
         <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
               Background="#202020"
-              Height="50"
+              Height="70"
               Row="1">
 
             <Grid.OpacityMask>
@@ -46,12 +46,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{Binding Payload.Name}"
+            <!--<TextBlock Text="{Binding Payload.Name}"
                        Margin="10 0"
                        VerticalAlignment="Center"
                        Foreground="White"
                        FontWeight="Bold"
-                       FontSize="16" />
+                       FontSize="16" />-->
 
             <ProgressBar x:Name="LoaderControl"
                          Visibility="Collapsed"
@@ -59,7 +59,7 @@
                          Style="{StaticResource MaterialDesignCircularProgressBar}"
                          Value="0"
                          IsIndeterminate="True"
-                         Margin="3 3 10 10"
+                         Margin="0 10 15 0"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Right" />
 
@@ -69,7 +69,7 @@
                           Grid.Column="1"
                           Width="28"
                           Height="28"
-                          Margin="3 3 10 10"
+                          Margin="0 10 15 0"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Right"
                           IsChecked="{Binding Payload.Installed}"
