@@ -1,12 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using NuGet;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Services;
@@ -36,18 +30,13 @@ public partial class MainWindowControl
         DataContext = vm;
 
         Loaded += OnLoaded;
-        ViewModelBase.IsMsbuilderInstalledHandler += OnInstalled;
+        // ViewModelBase.IsMsbuilderInstalledHandler += OnInstalled;
     }
 
     private void InitializeMaterialDesign()
     {
         _ = new MahApps.Metro.Controls.MetroWindow();
         _ = new Card();
-    }
-
-    private void OnInstalled(bool installed)
-    {
-        _vm.SelectedProject.Installed = installed;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -59,7 +48,8 @@ public partial class MainWindowControl
         CheckVersionAsync().GetAwaiter();
 
         var helper = new NugetHelper();
-        var isInstalled = helper.IsPackageInstalled(_vm.SelectedProject.Project, SemanticVersion.Parse("1.10.0"));
+        var isInstalled = helper.IsPackageInstalled(_vm.SelectedProject.Project, NugetHelper.PackageId, null);
+        _vm.SelectedProject.Installed = isInstalled;
         ViewModelBase.IsMsbuilderInstalledHandler.Invoke(isInstalled);
     }
 

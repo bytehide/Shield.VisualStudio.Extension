@@ -28,4 +28,6 @@ public static class StringExtension
         source.Length <= 0 ? [] : Encoding.ASCII.GetBytes(source);
 
     public static string Truncate(this string value, int maxLength) => Utils.Truncate(value, maxLength);
+
+    public static string ToUuid(this string source) => Utils.Uuid(source).ToString();
 }

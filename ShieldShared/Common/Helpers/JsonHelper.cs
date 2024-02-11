@@ -4,9 +4,12 @@ namespace ShieldVSExtension.Common.Helpers;
 
 internal class JsonHelper
 {
-    public static string Serialize<T>(T obj)
+    public static string Serialize<T>(T obj, bool formatting = true)
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(obj, new Newtonsoft.Json.JsonSerializerSettings
+        {
+            Formatting = formatting ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None
+        });
     }
 
     public static T Deserialize<T>(string source)
@@ -19,8 +22,8 @@ internal class JsonHelper
         return Deserialize<ShieldConfiguration>(source);
     }
 
-    public static string Stringify(ShieldConfiguration configuration)
+    public static string Stringify(ShieldConfiguration configuration, bool formatting = true)
     {
-        return Serialize(configuration);
+        return Serialize(configuration, formatting);
     }
 }

@@ -18,7 +18,7 @@ namespace ShieldVSExtension.Common.Services
             var url = $"{ApiPath.ServerApiPath}/version/check?product={product}";
             if (!string.IsNullOrEmpty(version))
             {
-                url += $"&version=${version}";
+                url += $"&version={version}";
             }
 
             var data = await HttpX.GetAsync(url);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +30,7 @@ public partial class SettingsControl
         InitializeComponent();
         Loaded += OnLoaded;
         ViewModelBase.ProjectChangedHandler += OnRefresh;
+        Unloaded += OnFree;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e) => Task.Delay(100).ConfigureAwait(false).GetAwaiter()
@@ -53,7 +53,7 @@ public partial class SettingsControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName);
+        var data = LocalStorage.Get<ShieldConfiguration>($"{Payload.Project.UniqueName.ToUuid()}");
 
         ProjectNameBox.Text = data?.Name ?? $"Configuration {Payload.Project.Name}";
         ProjectTokenBox.Text = data?.ProjectToken ?? string.Empty;
@@ -106,12 +106,12 @@ public partial class SettingsControl
         if (!control.IsMouseOver) return;
         if (Payload == null) return;
 
-        Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+        ThreadHelper.ThrowIfNotOnUIThread();
 
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName) ?? new ShieldConfiguration();
+        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
         dynamic runConfigurationSelected = ProjectRunCombo.SelectedItem;
 
         data.Name = $"{ProjectNameBox.Text}";
@@ -121,14 +121,13 @@ public partial class SettingsControl
         data.Enabled = StatusToggle.IsChecked ?? false;
         data.RunConfiguration = runConfigurationSelected?.ConfigurationName ?? "Release";
 
-        LocalStorage.Set(Payload.Project.UniqueName, data);
+        LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
         var saved = FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
-            JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName)));
+            JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
 
         ViewModelBase.ProjectChangedHandler.Invoke(Payload);
-
-        MessageBox.Show(saved ? $"Saving for {Payload.Name}" : $"Failed to save for {Payload.Name}");
+        // MessageBox.Show(saved ? $"Saving for {Payload.Name}" : $"Failed to save for {Payload.Name}");
     }
 
     private void ProjectTokenBoxOnChanged(object sender, RoutedEventArgs e)
@@ -140,6 +139,11 @@ public partial class SettingsControl
         var validationResult = validationRule.Validate(password, CultureInfo.CurrentCulture);
 
         SaveButton.IsEnabled = validationResult.IsValid;
+    }
+
+    private void OnFree(object sender, RoutedEventArgs e)
+    {
+        ViewModelBase.ProjectChangedHandler -= OnRefresh;
     }
 
     #region Commands

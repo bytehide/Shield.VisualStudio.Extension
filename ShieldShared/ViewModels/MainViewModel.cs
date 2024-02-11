@@ -317,6 +317,7 @@ public sealed class MainViewModel : ViewModelBase
             })
             .ToArray();
 
+        var helper = new NugetHelper();
         foreach (var dteProject in dteProjects)
         {
             try
@@ -341,6 +342,10 @@ public sealed class MainViewModel : ViewModelBase
 
                 if (!string.IsNullOrEmpty(projectConfiguration.FileToProtect))
                     projectViewModel.FileToProtect = projectConfiguration.FileToProtect;
+
+                
+                var isInstalled = helper.IsPackageInstalled(projectViewModel.Project, NugetHelper.PackageId, null);
+                projectViewModel.Installed = isInstalled;
 
                 projects.Add(projectViewModel);
             }

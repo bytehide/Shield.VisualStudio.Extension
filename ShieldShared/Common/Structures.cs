@@ -4,9 +4,10 @@ public struct Version
 {
     public string Major;
     public string Minor;
+    public string Patch;
     public string Build;
 
-    public readonly string Get() => $"{Major}.{Minor}.{Build}";
+    public readonly string Get() => $"{Major}.{Minor}.{Patch}.{Build}";
 }
 
 public struct VersionInfo

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using NuGet;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.ViewModels;
@@ -25,6 +24,11 @@ public partial class ActionBarControl
         ViewModelBase.IsMsbuilderInstalledHandler += OnMsbuilderInstalled;
         ViewModelBase.VsixVersionHandler += OnVsixVersion;
     }
+
+    // private void OnProjectChanged(ProjectViewModel payload)
+    // {
+    //     ActiveButton.IsChecked = new NugetHelper().IsPackageInstalled(payload.Project, NugetHelper.PackageId, null);
+    // }
 
     private void OnMsbuilderInstalled(bool installed)
     {
@@ -85,11 +89,11 @@ public partial class ActionBarControl
         try
         {
             var helper = new NugetHelper();
-            var installed = helper.IsPackageInstalled(Payload.Project, SemanticVersion.Parse("1.10.0"));
+            var installed = helper.IsPackageInstalled(Payload.Project, NugetHelper.PackageId, null);
 
             if (!installed)
             {
-                await helper.InstallPackageAsync(Payload.Project, SemanticVersion.Parse("1.10.0"));
+                await helper.InstallPackageAsync(Payload.Project);
                 // ActiveButton.IsChecked = true;
                 Payload.Installed = true;
                 ViewModelBase.IsMsbuilderInstalledHandler.Invoke(true);

@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
-using NuGet;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.ViewModels;
 
@@ -25,7 +24,7 @@ public partial class IconDownloadControl
         // MessageBox.Show(Payload.Name);
 
         var helper = new NugetHelper();
-        helper.InstallPackageAsync(Payload.Project, SemanticVersion.Parse("1.10.0")).GetAwaiter();
+        helper.InstallPackageAsync(Payload.Project).GetAwaiter();
     }
 
     #region Commands

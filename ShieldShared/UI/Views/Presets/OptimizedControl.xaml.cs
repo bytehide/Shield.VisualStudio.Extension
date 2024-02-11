@@ -1,4 +1,5 @@
-﻿using ShieldVSExtension.Common.Helpers;
+﻿using System.Windows;
+using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Models;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Storage;
@@ -21,6 +22,8 @@ public partial class OptimizedControl
 
         ViewModelBase.ProjectChangedHandler += OnRefresh;
         ViewModelBase.TabSelectedHandler += OnSelected;
+
+        Unloaded += OnFree;
     }
 
     private void OnRefresh(ProjectViewModel payload)
@@ -45,7 +48,7 @@ public partial class OptimizedControl
 
             LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
                 .WithDefaultKeyBuilder());
-            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName) ?? new ShieldConfiguration();
+            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
             var optimized = EPresetType.Optimized.ToFriendlyString();
@@ -55,11 +58,17 @@ public partial class OptimizedControl
             LocalStorage.Set(Payload.Project.UniqueName, data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
-                JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName)));
+                JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
         catch (System.Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(ex.Message);
         }
+    }
+
+    private void OnFree(object sender, RoutedEventArgs e)
+    {
+        ViewModelBase.ProjectChangedHandler -= OnRefresh;
+        ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }

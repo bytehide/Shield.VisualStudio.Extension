@@ -29,9 +29,8 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     #region Commands
 
     public RelayCommand CheckProjectCommand { get; set; }
-    protected virtual void OnCheckProject(ProjectViewModel payload) => ProjectChangedHandler.Invoke(payload);
+    protected virtual void OnCheckProject(ProjectViewModel payload) => ProjectChangedHandler?.Invoke(payload);
     protected virtual void OnCheckProject(object _) => throw new NotImplementedException();
-    // public virtual void OnTabSelected(ETabType tab) => TabSelectedHandler.Invoke(tab);
 
     #endregion
 

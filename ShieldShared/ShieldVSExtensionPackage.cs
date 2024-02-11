@@ -1,5 +1,4 @@
-﻿using Community.VisualStudio.Toolkit;
-using dnlib.DotNet;
+﻿using dnlib.DotNet;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -14,7 +13,6 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using ShieldSolutionConfiguration = ShieldVSExtension.Common.Configuration.SolutionConfiguration;
 using Task = System.Threading.Tasks.Task;
 using ShieldVSExtension.Common.Configuration;

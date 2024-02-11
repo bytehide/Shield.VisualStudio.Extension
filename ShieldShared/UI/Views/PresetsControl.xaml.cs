@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using ShieldVSExtension.Common;
+using ShieldVSExtension.Common.Extensions;
 using ShieldVSExtension.Common.Models;
 using ShieldVSExtension.Storage;
 using ShieldVSExtension.ViewModels;
@@ -45,7 +46,7 @@ public partial class PresetsControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName);
+        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid());
         if (data == null || string.IsNullOrWhiteSpace(data.ProjectToken))
         {
             ToggleTabs(false);

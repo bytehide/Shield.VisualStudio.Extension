@@ -27,6 +27,8 @@ public partial class CustomControl
         // Loaded += OnLoaded;
         ViewModelBase.ProjectChangedHandler += OnRefresh;
         ViewModelBase.TabSelectedHandler += OnSelected;
+
+        Unloaded += OnFree;
     }
 
     private void OnRefresh(ProjectViewModel payload)
@@ -54,7 +56,7 @@ public partial class CustomControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName) ?? new ShieldConfiguration();
+        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
         if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
         if (data.Preset != EPresetType.Custom.ToFriendlyString()) return;
@@ -91,17 +93,17 @@ public partial class CustomControl
             LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
                 .WithDefaultKeyBuilder());
 
-            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName) ?? new ShieldConfiguration();
+            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
             var custom = EPresetType.Custom.ToFriendlyString();
             if (data.Preset == custom) return;
 
             data.Preset = custom;
-            LocalStorage.Set(Payload.Project.UniqueName, data);
+            LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
-                JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName)));
+                JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
         catch (System.Exception e)
         {
@@ -119,7 +121,7 @@ public partial class CustomControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName) ?? new ShieldConfiguration();
+        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
         if (string.IsNullOrWhiteSpace(data.ProjectToken))
         {
             MessageBox.Show("You need a Project Token to enable a protection");
@@ -137,9 +139,15 @@ public partial class CustomControl
             data.Protections.Remove(protection.Id);
         }
 
-        LocalStorage.Set(Payload.Project.UniqueName, data);
+        LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
         FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
-            JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName)));
+            JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
+    }
+
+    private void OnFree(object sender, RoutedEventArgs e)
+    {
+        ViewModelBase.ProjectChangedHandler -= OnRefresh;
+        ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }
