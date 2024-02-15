@@ -113,7 +113,7 @@
                              x:Name="ApplicationsList"
                              ItemsSource="{Binding Projects}"
                              HorizontalContentAlignment="Stretch"
-                             SelectedItem="{Binding SelectedProject, Mode=TwoWay}"
+                             SelectedItem="{Binding SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:RippleAssist.IsDisabled="True"
                              SelectionMode="Extended"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
