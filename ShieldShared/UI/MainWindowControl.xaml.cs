@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
+using Microsoft.VisualStudio.Shell;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Services;
@@ -23,14 +24,10 @@ public partial class MainWindowControl
         InitializeMaterialDesign();
         InitializeComponent();
 
-        // _app = Application.Current;
-        // _app.Exit += OnExit;
-
         _vm = vm;
         DataContext = vm;
 
         Loaded += OnLoaded;
-        // ViewModelBase.IsMsbuilderInstalledHandler += OnInstalled;
     }
 
     private void InitializeMaterialDesign()
@@ -48,9 +45,10 @@ public partial class MainWindowControl
         CheckVersionAsync().GetAwaiter();
 
         var helper = new NugetHelper();
-        var isInstalled = helper.IsPackageInstalled(_vm.SelectedProject.Project, NugetHelper.PackageId, null);
+        var isInstalled = helper.IsPackageInstalledAsync(_vm.SelectedProject.Project, NugetHelper.PackageId)
+            .GetAwaiter().GetResult();
+
         _vm.SelectedProject.Installed = isInstalled;
-        ViewModelBase.IsMsbuilderInstalledHandler.Invoke(isInstalled);
     }
 
     private async Task CheckVersionAsync()

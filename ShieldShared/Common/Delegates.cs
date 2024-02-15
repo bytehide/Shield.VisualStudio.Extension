@@ -11,4 +11,6 @@ internal class Delegates
     public delegate void IsMsbuilderInstalledHandler(bool installed);
 
     public delegate void VsixVersionHandler(VersionInfo info);
+
+    public delegate void MsbuilderInstallHandler();
 }

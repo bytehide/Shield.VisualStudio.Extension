@@ -343,10 +343,11 @@ public sealed class MainViewModel : ViewModelBase
                 if (!string.IsNullOrEmpty(projectConfiguration.FileToProtect))
                     projectViewModel.FileToProtect = projectConfiguration.FileToProtect;
 
-                
-                var isInstalled = helper.IsPackageInstalled(projectViewModel.Project, NugetHelper.PackageId, null);
-                projectViewModel.Installed = isInstalled;
 
+                var isInstalled = helper.IsPackageInstalledAsync(projectViewModel.Project, NugetHelper.PackageId)
+                    .GetAwaiter().GetResult();
+
+                projectViewModel.Installed = isInstalled;
                 projects.Add(projectViewModel);
             }
             catch
@@ -358,7 +359,7 @@ public sealed class MainViewModel : ViewModelBase
         Projects = projects;
         ProjectPresets =
         [
-            new ProjectPreset { Id = 1, Name = "Maximum" }, 
+            new ProjectPreset { Id = 1, Name = "Maximum" },
             new ProjectPreset { Id = 2, Name = "Balance" },
             new ProjectPreset { Id = 3, Name = "Optimized" }
         ];

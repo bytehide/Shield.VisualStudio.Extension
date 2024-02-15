@@ -89,17 +89,17 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Image Source="/ShieldVSExtension;component/Resources/shield.png" 
+                        <Image Source="/ShieldVSExtension;component/Resources/shield.png"
                                Grid.Column="0"
                                Margin="10"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                Height="20"
-                               Width="20"/>
+                               Width="20" />
 
                         <TextBlock x:Name="AppNameBox"
                                    Grid.Column="1"
@@ -113,7 +113,7 @@
                              x:Name="ApplicationsList"
                              ItemsSource="{Binding Projects}"
                              HorizontalContentAlignment="Stretch"
-                             SelectedItem="{Binding SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             SelectedItem="{Binding SelectedProject, Mode=TwoWay}"
                              materialDesign:RippleAssist.IsDisabled="True"
                              SelectionMode="Extended"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -212,9 +212,17 @@
                         <userControls:ActionBarControl Grid.Row="0"
                                                        Payload="{Binding SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <views:PresetsControl Grid.Row="1"
+                        <views:PresetsControl x:Name="PresetsControl"
+                                              Grid.Row="1"
+                                              Visibility="{Binding SelectedProject.Installed, Converter={StaticResource BooleanToVisibilityConverter}}"
                                               Payload="{Binding SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <views:DisabledControl x:Name="DisabledControl"
+                                               Grid.Row="1"
+                                               Visibility="{Binding SelectedProject.Installed, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                               Payload="{Binding SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
+
                 </Grid>
             </TabItem>
 
@@ -233,8 +241,8 @@
                     <Button Click="OnClose"
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                         <StackPanel Width="auto" Height="auto">
-                            <materialDesign:PackIcon Width="18" 
-                                                     Height="18" 
+                            <materialDesign:PackIcon Width="18"
+                                                     Height="18"
                                                      HorizontalAlignment="Center"
                                                      Kind="ExitToApp" />
                         </StackPanel>

@@ -119,7 +119,7 @@
 
             <Button x:Name="SaveButton"
                     Content="Save"
-                    Style="{StaticResource RaisedLightButtonStyle}"
+                    Style="{StaticResource RaisedButtonStyle}"
                     IsEnabled="False"
                     Click="SaveButtonOnClick"
                     Margin="20,40,20,20" />

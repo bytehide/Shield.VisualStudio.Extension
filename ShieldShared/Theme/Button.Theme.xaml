@@ -26,48 +26,17 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
     </Style>
 
-    <Style x:Key="ButtonYellowStyle" TargetType="Button"
-           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+    <Style x:Key="ButtonGreenStyle" TargetType="Button"
+           BasedOn="{StaticResource MaterialDesignPaperSecondaryButton}">
 
         <Setter Property="FontFamily" Value="Roboto" />
         <Setter Property="FontSize" Value="11 pt" />
         <Setter Property="FontStyle" Value="Normal" />
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="2" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius " Value="25" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
-        <Setter Property="Background" Value="#FFE0B725" />
-        <Setter Property="BorderBrush" Value="#1B1B1B" />
-    </Style>
-
-    <Style x:Key="RoundedButtonYellowStyle" TargetType="Button"
-           BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
-    </Style>
-
-    <Style x:Key="ButtonBlackStyle" TargetType="Button"
-           BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
-
-        <Setter Property="FontFamily" Value="Roboto" />
-        <Setter Property="FontSize" Value="11 pt" />
-        <Setter Property="FontStyle" Value="Normal" />
-        <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="2" />
-        <Setter Property="Background" Value="#1B1B1B" />
-        <Setter Property="BorderBrush" Value="#1B1B1B" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
-    </Style>
-
-    <Style x:Key="RaisedLightButtonStyle" TargetType="Button"
-           BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
-
-        <Setter Property="FontFamily" Value="Roboto" />
-        <Setter Property="FontSize" Value="11 pt" />
-        <Setter Property="FontStyle" Value="Normal" />
-        <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusStyle}" />
+        <Setter Property="BorderBrush" Value="MediumSpringGreen" />
     </Style>
 
 </ResourceDictionary>

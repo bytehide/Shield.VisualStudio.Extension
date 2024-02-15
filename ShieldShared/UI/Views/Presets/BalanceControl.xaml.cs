@@ -19,13 +19,13 @@ public partial class BalanceControl
     public BalanceControl()
     {
         InitializeComponent();
-        ViewModelBase.ProjectChangedHandler += OnRefresh;
+        ViewModelBase.ProjectChangedHandler += OnProjectChanged;
         ViewModelBase.TabSelectedHandler += OnSelected;
 
         Unloaded += OnFree;
     }
 
-    private void OnRefresh(ProjectViewModel payload)
+    private void OnProjectChanged(ProjectViewModel payload)
     {
         if (payload == null) return;
 
@@ -69,7 +69,7 @@ public partial class BalanceControl
 
     private void OnFree(object sender, RoutedEventArgs e)
     {
-        ViewModelBase.ProjectChangedHandler -= OnRefresh;
+        ViewModelBase.ProjectChangedHandler -= OnProjectChanged;
         ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }

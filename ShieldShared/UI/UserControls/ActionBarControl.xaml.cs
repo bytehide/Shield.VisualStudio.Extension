@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
@@ -12,46 +10,24 @@ namespace ShieldVSExtension.UI.UserControls;
 
 public partial class ActionBarControl
 {
-    // private readonly SharedViewModel _vm;
-
     public ActionBarControl()
     {
         InitializeComponent();
-        // _vm = new SharedViewModel();
-        // DataContext = _vm;
-
-        // ViewModelBase.ProjectChangedHandler += OnProjectChanged;
         ViewModelBase.IsMsbuilderInstalledHandler += OnMsbuilderInstalled;
         ViewModelBase.VsixVersionHandler += OnVsixVersion;
+        ViewModelBase.MsbuilderInstallHandler += OnMsbuilderInstall;
+
+        // Unloaded += (_, _) =>
+        // {
+        //     ViewModelBase.IsMsbuilderInstalledHandler -= OnMsbuilderInstalled;
+        //     ViewModelBase.VsixVersionHandler -= OnVsixVersion;
+        //     ViewModelBase.MsbuilderInstallHandler -= OnMsbuilderInstall;
+        // };
     }
 
-    // private void OnProjectChanged(ProjectViewModel payload)
-    // {
-    //     ActiveButton.IsChecked = new NugetHelper().IsPackageInstalled(payload.Project, NugetHelper.PackageId, null);
-    // }
+    private void OnMsbuilderInstall() => _ = ToggleProtectionAsync();
 
-    private void OnMsbuilderInstalled(bool installed)
-    {
-        ActiveButton.IsChecked = installed;
-    }
-
-    // private void OnProjectChanged(ProjectViewModel payload)
-    // {
-    //     Payload = payload;
-    // 
-    //     // if (payload.Installed) 
-    //     // 
-    //     // LoaderControl.Visibility = Visibility.Visible;
-    //     // ActiveButton.Visibility = Visibility.Collapsed;
-    //     // 
-    //     // var helper = new NugetHelper();
-    //     // var isInstalled = helper.IsPackageInstalled(payload.Project, SemanticVersion.Parse("1.10.0"));
-    //     // 
-    //     // ActiveButton.IsChecked = isInstalled;
-    //     // 
-    //     // LoaderControl.Visibility = Visibility.Collapsed;
-    //     // ActiveButton.Visibility = Visibility.Visible;
-    // }
+    private void OnMsbuilderInstalled(bool installed) => Dispatcher.Invoke(() => ActiveButton.IsChecked = installed);
 
     private void OnVsixVersion(VersionInfo info)
     {
@@ -70,62 +46,49 @@ public partial class ActionBarControl
 
         ActiveButton.IsEnabled = !info.ForceUpdate;
 
-        VersionRoot.ToolTip = info.Message;
+        // VersionRoot.ToolTip = info.Message;
         VersionMessageBox.Text = info.Message;
 
         VersionRoot.Visibility = Visibility.Visible;
     }
 
-    private async void ActiveOnChanged(object sender, RoutedEventArgs e)
+    private void ActiveOnChanged(object sender, RoutedEventArgs e)
     {
-        if (sender is not ToggleButton { IsInitialized: true } control) return;
-        if (!control.IsMouseOver) return;
+        if (sender is not ToggleButton { IsInitialized: true, IsMouseOver: true }) return;
 
-        control.Visibility = Visibility.Collapsed;
-        LoaderControl.Visibility = Visibility.Visible;
-
-        await Task.Delay(1500);
-
-        try
-        {
-            var helper = new NugetHelper();
-            var installed = helper.IsPackageInstalled(Payload.Project, NugetHelper.PackageId, null);
-
-            if (!installed)
-            {
-                await helper.InstallPackageAsync(Payload.Project);
-                // ActiveButton.IsChecked = true;
-                Payload.Installed = true;
-                ViewModelBase.IsMsbuilderInstalledHandler.Invoke(true);
-            }
-            else
-            {
-                await helper.UninstallPackageAsync(Payload.Project);
-                // ActiveButton.IsChecked = false;
-                Payload.Installed = false;
-                ViewModelBase.IsMsbuilderInstalledHandler.Invoke(false);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-        }
-        finally
-        {
-            await Task.Delay(1500);
-
-            LoaderControl.Visibility = Visibility.Collapsed;
-            ActiveButton.Visibility = Visibility.Visible;
-        }
+        ToggleProtectionAsync().GetAwaiter();
     }
 
+    private async Task ToggleProtectionAsync()
+    {
+        ActiveButton.Visibility = Visibility.Collapsed;
+        LoaderControl.Visibility = Visibility.Visible;
+
+        await Task.Run(() =>
+        {
+            var helper = new NugetHelper();
+            var installed = helper.IsPackageInstalledAsync(Payload.Project, NugetHelper.PackageId).GetAwaiter().GetResult();
+
+            var result = !installed
+                ? helper.InstallPackageAsync(Payload.Project)
+                : helper.UninstallPackageAsync(Payload.Project);
+
+            var proceed = result.GetAwaiter().GetResult() ? !installed : installed;
+
+            Payload.Installed = proceed;
+            ViewModelBase.IsMsbuilderInstalledHandler.Invoke(proceed);
+        });
+
+        ActiveButton.Visibility = Visibility.Visible;
+        LoaderControl.Visibility = Visibility.Collapsed;
+    }
 
     #region Commands
 
     public ProjectViewModel Payload
     {
-        get => (ProjectViewModel)GetValue(PayloadProperty);
-        set => SetValue(PayloadProperty, value);
+        get => (ProjectViewModel)Dispatcher.Invoke(() => GetValue(PayloadProperty));
+        set => Dispatcher.Invoke(() => SetValue(PayloadProperty, value));
     }
 
     public static readonly DependencyProperty PayloadProperty = DependencyProperty.Register(

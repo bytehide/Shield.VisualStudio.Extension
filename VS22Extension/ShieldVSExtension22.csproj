@@ -64,6 +64,9 @@
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\warning-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\ShieldExtension.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

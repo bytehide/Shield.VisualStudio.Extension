@@ -29,14 +29,14 @@ public partial class SettingsControl
     {
         InitializeComponent();
         Loaded += OnLoaded;
-        ViewModelBase.ProjectChangedHandler += OnRefresh;
+        ViewModelBase.ProjectChangedHandler += OnProjectChanged;
         Unloaded += OnFree;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e) => Task.Delay(100).ConfigureAwait(false).GetAwaiter()
         .OnCompleted(() => LoadDataAsync().GetAwaiter());
 
-    private void OnRefresh(ProjectViewModel payload)
+    private void OnProjectChanged(ProjectViewModel payload)
     {
         if (payload == null) return;
 
@@ -90,7 +90,15 @@ public partial class SettingsControl
         if (ProjectRunCombo.SelectedIndex == -1)
         {
             // ProjectRunCombo.SelectedItem ??= Payload.Project.ConfigurationManager.ActiveConfiguration;
-            ProjectRunCombo.SelectedIndex = Payload.Project.ConfigurationManager.Count - 1;
+            if (Payload.Project.ConfigurationManager is { Count: > 0 })
+            {
+                ProjectRunCombo.SelectedIndex = Payload.Project.ConfigurationManager.Count - 1;
+            }
+
+            else
+            {
+                ProjectRunCombo.SelectedIndex = 0;
+            }
         }
 
         // var runConfigurations = Payload.Project.ConfigurationManager.Cast<Configuration>().Select(x => x.ConfigurationName);
@@ -111,7 +119,8 @@ public partial class SettingsControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
+        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
+                   new ShieldConfiguration();
         dynamic runConfigurationSelected = ProjectRunCombo.SelectedItem;
 
         data.Name = $"{ProjectNameBox.Text}";
@@ -143,7 +152,7 @@ public partial class SettingsControl
 
     private void OnFree(object sender, RoutedEventArgs e)
     {
-        ViewModelBase.ProjectChangedHandler -= OnRefresh;
+        ViewModelBase.ProjectChangedHandler -= OnProjectChanged;
     }
 
     #region Commands

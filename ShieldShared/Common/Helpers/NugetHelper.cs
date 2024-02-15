@@ -16,7 +16,6 @@ internal class NugetHelper
 {
     public static readonly string PackageId = "Bytehide.Shield.Integration";
     // public static readonly SemanticVersion PackageVersion = SemanticVersion.Parse("2.1.0");
-
     // private static readonly SemanticVersion PackageVersion = new("1.0.0");
 
     [Import(typeof(IVsPackageInstaller2))] private IVsPackageInstaller2 _packageInstaller;
@@ -24,14 +23,12 @@ internal class NugetHelper
     [Import(typeof(IVsPackageUninstaller))]
     private IVsPackageUninstaller _packageUninstaller;
 
-    public Task InstallPackageAsync(Project project)
+    public async Task<bool> InstallPackageAsync(Project project)
     {
         try
         {
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-            // var installerServices = componentModel.GetService<IVsPackageInstallerServices>();
-
-            _packageInstaller = componentModel.GetService<IVsPackageInstaller2>();
+            _packageInstaller = componentModel?.GetService<IVsPackageInstaller2>();
 
             if (_packageInstaller == null)
             {
@@ -39,31 +36,79 @@ internal class NugetHelper
                     "Package installer is not available. Please make sure that NuGet is installed and enabled in Visual Studio.",
                     "Error"
                 );
-
-                return Task.CompletedTask;
+                return false;
             }
 
-            // if (IsPackageInstalled(project, PackageId, null)) return Task.CompletedTask;
+            if (await IsPackageInstalledAsync(project, PackageId))
+            {
+                return true;
+            }
 
-            _packageInstaller?.InstallLatestPackage(
-                source: null,
-                project,
-                PackageId,
-                includePrerelease: false,
-                ignoreDependencies: false
-            );
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            _packageInstaller.InstallLatestPackage(null, project, PackageId, false, false);
 
-            // MessageBox.Show(@"Package installed successfully");
+            return true;
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Error during package installation: {ex.Message}");
+            Debug.WriteLine($"Error during package installation: {ex.Message}");
+            return false;
         }
-
-        return Task.CompletedTask;
     }
 
-    public bool IsPackageInstalled(Project project, string packageId, SemanticVersion packageVersion)
+    public async Task<bool> UninstallPackageAsync(Project project)
+    {
+        try
+        {
+            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+            _packageUninstaller = componentModel?.GetService<IVsPackageUninstaller>();
+
+            if (_packageUninstaller == null)
+            {
+                MessageBox.Show(
+                    "Package uninstaller is not available. Please make sure that NuGet is installed and enabled in Visual Studio.",
+                    "Error"
+                );
+
+                return false;
+            }
+
+            if (!await IsPackageInstalledAsync(project, PackageId))
+            {
+                return true;
+            }
+
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            _packageUninstaller.UninstallPackage(project, PackageId, false);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error during package uninstallation: {ex.Message}");
+            return true;
+        }
+    }
+
+    public async Task<bool> IsPackageInstalledAsync(Project project, string packageId)
+    {
+        try
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+            var installerServices = componentModel?.GetService<IVsPackageInstallerServices>();
+
+            return installerServices != null && IsPackageInstalled(project, packageId, null);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error checking if package is installed: {ex.Message}");
+            return false;
+        }
+    }
+
+    private static bool IsPackageInstalled(Project project, string packageId, SemanticVersion packageVersion)
     {
         try
         {
@@ -106,42 +151,5 @@ internal class NugetHelper
             Debug.WriteLine($"Error during checking installation: {ex.Message}");
             return false;
         }
-    }
-
-    public Task UninstallPackageAsync(Project project)
-    {
-        try
-        {
-            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-            // var installerServices = componentModel.GetService<IVsPackageInstallerServices>();
-
-            _packageUninstaller = componentModel.GetService<IVsPackageUninstaller>();
-
-            if (!IsPackageInstalled(project, PackageId, null))
-            {
-                // MessageBox.Show(@"Package not installed");
-                return Task.CompletedTask;
-            }
-
-            if (_packageUninstaller == null)
-            {
-                MessageBox.Show(
-                    "Package installer is not available. Please make sure that NuGet is installed and enabled in Visual Studio.",
-                    "Error"
-                );
-
-                return Task.CompletedTask;
-            }
-
-            _packageUninstaller?.UninstallPackage(project, PackageId, false);
-            // MessageBox.Show(@"Package uninstalled successfully");
-        }
-        catch (Exception ex)
-        {
-            // Console.WriteLine($@"Error during package uninstallation: {ex.Message}");
-            Debug.WriteLine($"Error during package uninstallation: {ex.Message}");
-        }
-
-        return Task.CompletedTask;
     }
 }
