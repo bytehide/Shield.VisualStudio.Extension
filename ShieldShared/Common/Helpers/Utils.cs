@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using VS22Extension;
+using VSExtension;
 
 namespace ShieldVSExtension.Common.Helpers;
 

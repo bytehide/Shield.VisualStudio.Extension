@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.Shell;
@@ -12,6 +11,7 @@ using ShieldVSExtension.Common.Validators;
 using ShieldVSExtension.Storage;
 using ShieldVSExtension.ViewModels;
 using Globals = ShieldVSExtension.Common.Globals;
+using Task = System.Threading.Tasks.Task;
 
 namespace ShieldVSExtension.UI.Views;
 

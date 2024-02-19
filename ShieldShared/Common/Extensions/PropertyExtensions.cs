@@ -5,7 +5,7 @@ namespace ShieldVSExtension.Common.Extensions;
 
 public static class PropertiesExtensions
 {
-    public static Property GetPropertyOrDefault(this Properties properties, string propertyName)
+    public static Property GetPropertyOrDefault(this EnvDTE.Properties properties, string propertyName)
     {
         Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
         try
