@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
-using Microsoft.VisualStudio.Shell;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Services;
