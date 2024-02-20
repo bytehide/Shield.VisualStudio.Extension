@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using VS22Extension;
+using VSExtension;
 
 [assembly: AssemblyTitle(Vsix.Name)]
 [assembly: AssemblyDescription(Vsix.Description)]

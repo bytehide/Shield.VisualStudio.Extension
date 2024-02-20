@@ -28,6 +28,8 @@ public static class PropertiesExtensions
 
     public static object TryGetPropertyValueOrDefault(this EnvDTE.Properties properties, string propertyName)
     {
+        Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
         try
         {
             return properties.Item(propertyName).Value;

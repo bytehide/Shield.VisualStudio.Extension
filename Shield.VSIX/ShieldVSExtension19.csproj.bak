@@ -183,7 +183,8 @@
     <Reference Include="System.Design" />
     <Reference Include="System.ComponentModel.Composition" />
   </ItemGroup>
-  <ItemGroup>    
+  <ItemGroup>
+    <PackageReference Include="Community.VisualStudio.VSCT" Version="16.0.29.6" PrivateAssets="all" />
     <PackageReference Include="Community.VisualStudio.Toolkit">
       <Version>16.0.75.5</Version>
     </PackageReference>

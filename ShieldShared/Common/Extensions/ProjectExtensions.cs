@@ -18,7 +18,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 using ShieldVSExtension.Common.Contracts;
 using ShieldVSExtension.Common.Helpers;
-using VSLangProj;
 
 namespace ShieldVSExtension.Common.Extensions;
 
@@ -552,16 +551,16 @@ public static class ProjectExtensions
                 return "None";
             }
 
-            if (!Enum.TryParse(property.Value.ToString(), out prjOutputType outputType))
+            if (!Enum.TryParse(property.Value.ToString(), out VSLangProj.prjOutputType outputType))
             {
                 return property.Value.ToString();
             }
 
             return outputType switch
             {
-                prjOutputType.prjOutputTypeWinExe => "WinExe",
-                prjOutputType.prjOutputTypeExe => "WinExe (console)",
-                prjOutputType.prjOutputTypeLibrary => "Library",
+                VSLangProj.prjOutputType.prjOutputTypeWinExe => "WinExe",
+                VSLangProj.prjOutputType.prjOutputTypeExe => "WinExe (console)",
+                VSLangProj.prjOutputType.prjOutputTypeLibrary => "Library",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -888,16 +887,16 @@ public static class ProjectExtensions
 
         foreach (Project projects in dte.Solution.Projects)
         {
-            if (!(projects.Object is VSProject vsProj) || vsProj.References == null)
+            if (!(projects.Object is VSLangProj.VSProject vsProj) || vsProj.References == null)
             {
                 // Project not loaded
                 continue;
             }
 
-            foreach (Reference reference in vsProj.References)
+            foreach (VSLangProj.Reference reference in vsProj.References)
             {
                 if (reference.SourceProject != null
-                    || reference.Type != prjReferenceType.prjReferenceTypeAssembly)
+                    || reference.Type != VSLangProj.prjReferenceType.prjReferenceTypeAssembly)
                 {
                     if (reference.StrongName)
                         //System.Configuration, Version=2.0.0.0,
@@ -928,9 +927,9 @@ public static class ProjectExtensions
             }
         }
 
-        if (!(project?.Object is VSProject vsProject)) return list;
+        if (!(project?.Object is VSLangProj.VSProject vsProject)) return list;
 
-        foreach (Reference reference in vsProject.References)
+        foreach (VSLangProj.Reference reference in vsProject.References)
             if (reference.StrongName)
             {
                 var item = (reference.Identity,
@@ -958,7 +957,7 @@ public static class ProjectExtensions
         ThreadHelper.ThrowIfNotOnUIThread();
         // note: you could also try casting to VsWebSite.VSWebSite
 
-        if (project.Object is not VSProject vsproject) yield break;
+        if (project.Object is not VSLangProj.VSProject vsproject) yield break;
         foreach (VSLangProj.Reference reference in vsproject.References)
         {
             if (reference.SourceProject == null)
@@ -975,7 +974,7 @@ public static class ProjectExtensions
         }
     }
 
-    public static string GetFullName(Reference reference)
+    public static string GetFullName(VSLangProj.Reference reference)
     {
         return string.Format("{ 0}, Version ={ 1}.{ 2}.{ 3}.{ 4}, Culture ={ 5}, PublicKeyToken ={ 6}",
             reference.Name,
