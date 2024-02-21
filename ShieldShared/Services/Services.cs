@@ -12,12 +12,12 @@ public static class Services
 {
     public static IServiceProvider UnitTestServiceProvider { get; set; }
 
-    static Ret GetGlobalService<T, Ret>(IServiceProvider provider = null) where T : class where Ret : class
+    private static TRet GetGlobalService<T, TRet>(IServiceProvider provider = null) where T : class where TRet : class
     {
-        Ret ret = null;
+        TRet ret = null;
         if (provider != null)
         {
-            ret = provider.GetService(typeof(T)) as Ret;
+            ret = provider.GetService(typeof(T)) as TRet;
         }
 
         if (ret != null)
@@ -27,10 +27,10 @@ public static class Services
 
         if (UnitTestServiceProvider != null)
         {
-            return UnitTestServiceProvider.GetService(typeof(T)) as Ret;
+            return UnitTestServiceProvider.GetService(typeof(T)) as TRet;
         }
 
-        return Package.GetGlobalService(typeof(T)) as Ret;
+        return Package.GetGlobalService(typeof(T)) as TRet;
     }
 
     public static IComponentModel ComponentModel => GetGlobalService<SComponentModel, IComponentModel>();

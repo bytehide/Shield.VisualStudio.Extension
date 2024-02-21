@@ -99,19 +99,17 @@ public class SolutionConfiguration
         var data = new byte[length];
         await stream.ReadAsync(data, 0, length);
 
-        using (var ms = new MemoryStream(data))
-        using (var zip = new GZipStream(ms, CompressionMode.Decompress))
-        {
-            var ms2 = new MemoryStream();
-            await zip.CopyToAsync(ms2);
+        using var ms = new MemoryStream(data);
+        using var zip = new GZipStream(ms, CompressionMode.Decompress);
+        var ms2 = new MemoryStream();
+        await zip.CopyToAsync(ms2);
 
-            var json = Encoding.UTF8.GetString(ms2.ToArray());
+        var json = Encoding.UTF8.GetString(ms2.ToArray());
 
-            return string.IsNullOrEmpty(json)
-                ? new SolutionConfiguration()
-                : JsonSerializer.Deserialize<SolutionConfiguration>(json);
-            //return JsonConvert.DeserializeObject<SolutionConfiguration>(json);
-        }
+        return string.IsNullOrEmpty(json)
+            ? new SolutionConfiguration()
+            : JsonSerializer.Deserialize<SolutionConfiguration>(json);
+        //return JsonConvert.DeserializeObject<SolutionConfiguration>(json);
     }
 
     public static SolutionConfiguration Load(Stream stream)

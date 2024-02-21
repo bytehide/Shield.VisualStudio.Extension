@@ -281,25 +281,15 @@ public sealed class MainViewModel : ViewModelBase
 
         SelectedProject = p1;
 
-        _solutionConfiguration = new SolutionConfiguration();
+        new SolutionConfiguration();
     }
 #endif
 
     #endregion
 
-    public ObservableCollection<ProjectPreset> ProjectPresets { get; set; }
-
-    public ObservableCollection<string> ProjectEditions { get; set; }
-
-    private readonly SolutionConfiguration _solutionConfiguration;
-
-    // public SharedViewModel SharedViewModelInstance { get; } = new();
-
     public MainViewModel(DTE2 dte, SolutionConfiguration solutionConfiguration)
     {
         ThreadHelper.ThrowIfNotOnUIThread();
-
-        _solutionConfiguration = solutionConfiguration;
 
         CheckProjectCommand = new RelayCommand(OnCheckProject);
 
@@ -357,19 +347,7 @@ public sealed class MainViewModel : ViewModelBase
         }
 
         Projects = projects;
-        ProjectPresets =
-        [
-            new ProjectPreset { Id = 1, Name = "Maximum" },
-            new ProjectPreset { Id = 2, Name = "Balance" },
-            new ProjectPreset { Id = 3, Name = "Optimized" }
-        ];
-        ProjectEditions =
-        [
-            "Keep my plan",
-            "Essentials",
-            "Professional",
-            "Enterprise"
-        ];
+
         TargetDirectory = solutionConfiguration.TargetDirectory;
         CreateShieldProjectIfNotExists = solutionConfiguration.CreateShieldProjectIfNotExists;
         FindCustomConfigurationFile = solutionConfiguration.FindCustomConfigurationFile;
@@ -397,88 +375,5 @@ public sealed class MainViewModel : ViewModelBase
         }
 
         SelectedProject ??= Projects.FirstOrDefault();
-    }
-
-    public void Enable(bool isEnabled)
-    {
-        foreach (var projectViewModel in SelectedProjects)
-            projectViewModel.IsEnabled = isEnabled;
-    }
-
-    public void IncludeSubDirectories(bool include)
-    {
-        foreach (var projectViewModel in SelectedProjects)
-            projectViewModel.IncludeSubDirectories = include;
-    }
-
-    public void AddOutput(string fileExtension)
-    {
-        foreach (var item in SelectedProjects)
-        {
-            var targetFileName = item.Name + fileExtension;
-
-            if (!File.Exists(Path.Combine(item.OutputFullPath, targetFileName)))
-                continue;
-
-            if (item.Files.Any(p => string.Equals(p.FileName, targetFileName, StringComparison.OrdinalIgnoreCase)))
-                continue;
-
-            item.Files.Add(new ProjectFileViewModel(targetFileName));
-        }
-    }
-
-    public void AddOutputByPattern(string searchPattern)
-    {
-        foreach (var item in SelectedProjects)
-        {
-            if (item.Files.Any(p => string.Equals(p.FileName, searchPattern, StringComparison.OrdinalIgnoreCase)))
-                continue;
-
-            item.Files.Add(new ProjectFileViewModel(searchPattern));
-        }
-    }
-
-    public void ClearFiles()
-    {
-        foreach (var projectViewModel in SelectedProjects)
-            projectViewModel.Files.Clear();
-    }
-
-    public void ClearTargetDirectory()
-    {
-        foreach (var item in SelectedProjects)
-            item.TargetDirectory = null;
-    }
-
-    public void Save()
-    {
-        _solutionConfiguration.TargetDirectory = TargetDirectory;
-        _solutionConfiguration.ShieldProjectName = ShieldProjectName;
-        _solutionConfiguration.BuildConfiguration = BuildConfiguration;
-        _solutionConfiguration.CreateShieldProjectIfNotExists = CreateShieldProjectIfNotExists;
-        _solutionConfiguration.FindCustomConfigurationFile = FindCustomConfigurationFile;
-        _solutionConfiguration.ProjectPreset = ProjectPreset;
-        _solutionConfiguration.ShieldProjectEdition = ShieldProjectEdition;
-        _solutionConfiguration.Projects.Clear();
-
-        foreach (var projectViewModel in Projects)
-        {
-            var projectConfiguration = new ProjectConfiguration
-            {
-                IsEnabled = projectViewModel.IsEnabled,
-                ProjectName = projectViewModel.Project.UniqueName,
-                IncludeSubDirectories = projectViewModel.IncludeSubDirectories,
-                TargetDirectory = projectViewModel.TargetDirectory,
-                InheritFromProject = projectViewModel.InheritFromProject,
-                ApplicationPreset = projectViewModel.ApplicationPreset,
-                FileToProtect = projectViewModel.FileToProtect,
-                ReplaceOriginalFile = projectViewModel.ReplaceOriginalFile,
-            };
-
-            foreach (var projectFileViewModel in projectViewModel.Files)
-                projectConfiguration.Files.Add(projectFileViewModel.FileName);
-
-            _solutionConfiguration.Projects.Add(projectConfiguration);
-        }
     }
 }

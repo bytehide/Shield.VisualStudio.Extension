@@ -5,6 +5,16 @@ namespace ShieldVSExtension.Common.Configuration;
 
 public class ProjectConfiguration
 {
+    public ProjectConfiguration()
+    {
+    }
+
+    public ProjectConfiguration(string projectName, bool isEnabled)
+    {
+        ProjectName = projectName;
+        IsEnabled = isEnabled;
+    }
+
     [DefaultValue(true)] public bool IsEnabled { get; set; } = true;
 
     public string ProjectName { get; set; }

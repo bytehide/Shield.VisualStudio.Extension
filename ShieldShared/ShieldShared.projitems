@@ -94,7 +94,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\Views\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProjectFileViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProjectViewModel.cs" />
