@@ -222,10 +222,10 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NuGet.VisualStudio">
-      <Version>17.8.0</Version>
+      <Version>17.9.1</Version>
     </PackageReference>
     <PackageReference Include="NuGet.VisualStudio.Contracts">
-      <Version>17.8.0</Version>
+      <Version>17.9.1</Version>
     </PackageReference>
     <PackageReference Include="System.Security.Cryptography.ProtectedData">
       <Version>7.0.0</Version>

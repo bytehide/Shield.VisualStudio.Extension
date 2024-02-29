@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Shield.2022.62df6510-15e7-4df5-8fbb-fc5f39b8545a" Version="2.0.0.8" Language="en-US" Publisher="ByteHide" />
+        <Identity Id="Shield.2022.62df6510-15e7-4df5-8fbb-fc5f39b8545a" Version="2.0.0.9" Language="en-US" Publisher="ByteHide" />
         <DisplayName>Shield - .NET Obfuscator &amp; App Shielding (VS 2022)</DisplayName>
         <Description xml:space="preserve">Advanced obfuscator for .NET apps. Protect your brand, secure code &amp; data. Compatible with .NET, Xamarin, UWP, .NET Core, .NET Standard, .NET MAUI, .NET 5, .NET 6 &amp; .NET 7. Easily integrates into Visual Studio compilation process.</Description>
         <MoreInfo>https://dotnetsafer.com</MoreInfo>
