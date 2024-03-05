@@ -29,7 +29,7 @@
 				</Strings>
 			</Button>-->
 
-			<Button guid="guidShieldVSExtensionPackageCmdSet" id="ConfigurationId" priority="0x100" type="Button">
+			<Button guid="guidShieldVSExtensionPackageCmdSet" id="ConfigurationId" priority="0x0200" type="Button">
 				<Parent guid="guidShieldVSExtensionPackageCmdSet" id="MyMenuGroup" />
 				<!-- <Icon guid="CustomMoniker" id="Application" /> -->
 				<Icon guid="ImageCatalogGuid" id="StatusSecurityOK" />
@@ -48,9 +48,9 @@
 		<GuidSymbol name="guidPackage" value="{311f3401-ccf0-489a-b402-97528dc6b439}" />
 
 		<GuidSymbol name="guidShieldVSExtensionPackageCmdSet" value="{ebf96a3a-1e33-42f6-b931-bd933ad6baba}">
-			<IDSymbol name="MyMenuGroup" value="0x1010" />
+			<IDSymbol name="MyMenuGroup" value="0x1020" />
 			<!-- <IDSymbol name="EnableId" value="0x0200" /> -->
-			<IDSymbol name="ConfigurationId" value="0x0100" />
+			<IDSymbol name="ConfigurationId" value="0x0200" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>
