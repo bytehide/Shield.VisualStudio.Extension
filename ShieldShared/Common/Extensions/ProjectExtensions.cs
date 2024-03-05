@@ -23,12 +23,12 @@ namespace ShieldVSExtension.Common.Extensions;
 
 public static class ProjectExtensions
 {
-    private static readonly HashSet<string> HiddenProjectsUniqueNames = new HashSet<string>
-    {
+    private static readonly HashSet<string> HiddenProjectsUniqueNames =
+    [
         null,
         string.Empty,
         "<MiscFiles>"
-    };
+    ];
 
     #region ProjectTypes fields
 
@@ -98,11 +98,13 @@ public static class ProjectExtensions
 
     public static Property GetPropertyOrDefault(this Project project, string propertyName)
     {
+        ThreadHelper.ThrowIfNotOnUIThread();
         return project.Properties.GetPropertyOrDefault(propertyName);
     }
 
     public static object TryGetPropertyValueOrDefault(this Project project, string propertyName)
     {
+        ThreadHelper.ThrowIfNotOnUIThread();
         return project.Properties.TryGetPropertyValueOrDefault(propertyName);
     }
 
