@@ -22,7 +22,7 @@ internal sealed class Enable
         commandService.AddCommand(Command);
     }
 
-    public static void Execute(AsyncPackage package)
+    public static void Execute(AsyncPackage _)
     {
         ThreadHelper.ThrowIfNotOnUIThread();
 

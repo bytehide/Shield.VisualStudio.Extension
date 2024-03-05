@@ -24,7 +24,7 @@ namespace ShieldVSExtension
     internal sealed partial class PackageIds
     {
         public const int MyMenuGroup = 0x1020;
-        public const int EnableId = 0x0200;
-        public const int ConfigurationId = 0x0100;
+        // public const int EnableId = 0x0200;
+        public const int ConfigurationId = 0x0200;
     }
 }

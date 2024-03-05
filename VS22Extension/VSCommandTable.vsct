@@ -6,7 +6,8 @@
 	<Extern href="stdidcmd.h" />
 	<Extern href="vsshlids.h" />
 	<Include href="KnownImageIds.vsct" />
-
+	<Include href="CustomMoniker.vsct" />
+	<!-- <Include href="VSGlobals.vsct" /> -->
 
 	<Commands package="guidPackage">
 		<Groups>
@@ -19,22 +20,22 @@
         or combo box in a toolbar. -->
 		<Buttons>
 
-
-			<Button guid="guidShieldVSExtensionPackageCmdSet" id="ConfigurationId" priority="0x0100" type="Button">
+			<!--<Button guid="guidShieldVSExtensionPackageCmdSet" id="EnableId" priority="0x0100" type="Button">
 				<Parent guid="guidShieldVSExtensionPackageCmdSet" id="MyMenuGroup" />
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<Strings>
 					<ButtonText>ByteHide Shield Enable</ButtonText>
 				</Strings>
-			</Button>
+			</Button>-->
 
-			<Button guid="guidShieldVSExtensionPackageCmdSet" id="EnableId" priority="0x0200" type="Button">
+			<Button guid="guidShieldVSExtensionPackageCmdSet" id="ConfigurationId" priority="0x100" type="Button">
 				<Parent guid="guidShieldVSExtensionPackageCmdSet" id="MyMenuGroup" />
+				<!-- <Icon guid="CustomMoniker" id="Application" /> -->
 				<Icon guid="ImageCatalogGuid" id="StatusSecurityOK" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
-				<CommandFlag>DefaultInvisible</CommandFlag>
 				<CommandFlag>DynamicVisibility</CommandFlag>
+				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
 					<ButtonText>ByteHide Shield Configuration</ButtonText>
 				</Strings>
@@ -47,8 +48,8 @@
 		<GuidSymbol name="guidPackage" value="{311f3401-ccf0-489a-b402-97528dc6b439}" />
 
 		<GuidSymbol name="guidShieldVSExtensionPackageCmdSet" value="{ebf96a3a-1e33-42f6-b931-bd933ad6baba}">
-			<IDSymbol name="MyMenuGroup" value="0x1020" />
-			<IDSymbol name="EnableId" value="0x0200" />
+			<IDSymbol name="MyMenuGroup" value="0x1010" />
+			<!-- <IDSymbol name="EnableId" value="0x0200" /> -->
 			<IDSymbol name="ConfigurationId" value="0x0100" />
 		</GuidSymbol>
 	</Symbols>

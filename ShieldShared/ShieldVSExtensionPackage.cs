@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using ShieldVSExtension.Commands;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -80,16 +81,21 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
     protected override async Task InitializeAsync(CancellationToken cancellationToken,
         IProgress<ServiceProgressData> progress)
     {
-        var tt = AppDomain.CurrentDomain.GetAssemblies().ToList();
+        _ = AppDomain.CurrentDomain.GetAssemblies().ToList();
 
         // When initialized asynchronously, the current thread may be a background thread at this point.
         // Do any initialization that requires the UI thread after switching to the UI thread.
+
         await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         await Enable.InitializeAsync(this);
         await MainWindowCommand.InitializeAsync(this);
 
-        Dte = (DTE2)await GetServiceAsync(typeof(DTE));
-        if (Dte == null) throw new ArgumentNullException(nameof(Dte));
+        Dte = await GetServiceAsync(typeof(DTE)) as DTE2;
+        if (Dte == null)
+        {
+            Debug.Fail("DTE service is null");
+            throw new ArgumentNullException(nameof(Dte));
+        }
 
         Pane = Dte.ToolWindows.OutputWindow.OutputWindowPanes.Add("ByteHide Shield");
 
@@ -110,7 +116,11 @@ public sealed class ShieldVsExtensionPackage : AsyncPackage
         AddOptionKey(ShieldConfiguration);
 
         var solutionPersistenceService = (IVsSolutionPersistence)await GetServiceAsync(typeof(IVsSolutionPersistence));
-        if (solutionPersistenceService == null) throw new ArgumentNullException(nameof(solutionPersistenceService));
+        if (solutionPersistenceService == null)
+        {
+            Debug.Fail("SolutionPersistenceService is null");
+            throw new ArgumentNullException(nameof(solutionPersistenceService));
+        }
 
         solutionPersistenceService.LoadPackageUserOpts(this, ShieldConfiguration);
 

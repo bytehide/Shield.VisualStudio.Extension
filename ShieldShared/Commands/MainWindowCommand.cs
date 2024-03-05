@@ -28,7 +28,7 @@ internal sealed class MainWindowCommand
         commandService.AddCommand(Command);
     }
 
-    public static void Execute(AsyncPackage package)
+    public static void Execute(AsyncPackage _)
     {
         ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -44,15 +44,17 @@ internal sealed class MainWindowCommand
 
         //var optionsViewModel = new OptionsViewModel(dte, configuration);
 
-        if (!(ServiceProvider.GlobalProvider.GetService(typeof(DTE)) is DTE2 dte))
+        if (ServiceProvider.GlobalProvider.GetService(typeof(DTE)) is not DTE2 dte)
+        {
             throw new ArgumentNullException(nameof(dte));
+        }
 
         var optionsViewModel = new MainViewModel(dte, ShieldVsExtensionPackage.Configuration);
         var optionsView = new MainWindowControl(optionsViewModel);
 
         var interop = new WindowInteropHelper(optionsView);
         interop.EnsureHandle();
-        interop.Owner = (IntPtr)dte.MainWindow.HWnd;
+        interop.Owner = dte.MainWindow.HWnd;
 
         optionsView.ShowDialog();
 

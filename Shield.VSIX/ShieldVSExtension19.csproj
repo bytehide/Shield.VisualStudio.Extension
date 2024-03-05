@@ -208,16 +208,16 @@
     <PackageReference Include="MaterialDesignThemes.Wpf">
       <Version>1.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Composition">
-      <Version>17.2.41</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.ProjectSystem">
       <Version>17.2.402-pre</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>17.4.33103.184</Version>
+      <Version>17.9.37000</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.9.3168">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
