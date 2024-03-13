@@ -15,10 +15,3 @@ using VSExtension;
 
 [assembly: AssemblyVersion(Vsix.Version)]
 [assembly: AssemblyFileVersion(Vsix.Version)]
-
-namespace System.Runtime.CompilerServices
-{
-    public class IsExternalInit
-    {
-    }
-}
