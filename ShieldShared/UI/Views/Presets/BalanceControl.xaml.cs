@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Models;
 using ShieldVSExtension.Common;
@@ -46,30 +47,31 @@ public partial class BalanceControl
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
             .WithDefaultKeyBuilder());
 
-        // try
-        // {
-        var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
-        if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
+        try
+        {
+            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
+                       new ShieldConfiguration();
+            if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
-        var balance = EPresetType.Balance.ToFriendlyString();
-        if (data.Preset == balance) return;
+            var balance = EPresetType.Balance.ToFriendlyString();
+            if (data.Preset == balance) return;
 
-        data.Preset = balance;
-        LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
+            data.Preset = balance;
+            LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-        FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
-            JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
-        // }
-        // catch (System.Exception ex)
-        // {
-        //     LocalStorage.Remove(Payload.Project.UniqueName);
-        //     MessageBox.Show(ex.Message);
-        // }
+            FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+                JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
+        }
+        catch (System.Exception ex)
+        {
+            LocalStorage.Remove(Payload.Project.UniqueName);
+            Debug.WriteLine(ex.Message);
+        }
     }
 
     private void OnFree(object sender, RoutedEventArgs e)
     {
         ViewModelBase.ProjectChangedHandler -= OnProjectChanged;
-        ViewModelBase.TabSelectedHandler -= OnSelected;
+        // ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }

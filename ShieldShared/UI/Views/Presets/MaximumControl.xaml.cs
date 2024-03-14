@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Common.Extensions;
 using ShieldVSExtension.Common.Helpers;
@@ -48,7 +49,9 @@ public partial class MaximumControl
 
             LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
                 .WithDefaultKeyBuilder());
-            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ?? new ShieldConfiguration();
+
+            var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
+                       new ShieldConfiguration();
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
             var maximum = EPresetType.Maximum.ToFriendlyString();
@@ -60,15 +63,16 @@ public partial class MaximumControl
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
                 JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
-        catch (System.Exception e)
+        catch (System.Exception ex)
         {
-            MessageBox.Show(e.Message);
+            LocalStorage.Remove(Payload.Project.UniqueName);
+            Debug.WriteLine(ex.Message);
         }
     }
 
     private void OnFree(object sender, RoutedEventArgs e)
     {
         ViewModelBase.ProjectChangedHandler -= OnRefresh;
-        ViewModelBase.TabSelectedHandler -= OnSelected;
+        // ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }
