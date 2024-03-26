@@ -55,7 +55,7 @@ public partial class PresetsControl
             return;
         }
 
-        var preset = data?.Preset;
+        var preset = data.Preset;
         if (preset == null) return;
 
         // HasSettings = true;

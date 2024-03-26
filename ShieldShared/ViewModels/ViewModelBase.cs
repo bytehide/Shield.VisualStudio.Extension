@@ -20,7 +20,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         get => _payload;
         set
         {
-            if (_payload == value) return;
+            if (value == _payload) return;
 
             _payload = value;
             OnPropertyChanged(nameof(Payload));

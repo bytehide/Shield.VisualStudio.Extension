@@ -32,6 +32,7 @@ public partial class OptimizedControl
         if (payload == null) return;
 
         Payload = payload;
+        SaveConfiguration();
     }
 
     private void OnSelected(EPresetType preset)
@@ -49,14 +50,16 @@ public partial class OptimizedControl
 
             LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
                 .WithDefaultKeyBuilder());
+
             var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
                        new ShieldConfiguration();
+
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
-            var optimized = EPresetType.Optimized.ToFriendlyString();
-            if (data.Preset == optimized) return;
+            var preset = EPresetType.Optimized.ToFriendlyString();
+            if (data.Preset == preset) return;
 
-            data.Preset = optimized;
+            data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,

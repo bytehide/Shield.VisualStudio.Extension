@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using ShieldVSExtension.Commands;
@@ -236,7 +235,7 @@ public sealed class MainViewModel : ViewModelBase
 
     #endregion
 
-    private readonly Common.Configuration.SolutionConfiguration _solutionConfiguration;
+    private readonly SolutionConfiguration _solutionConfiguration;
 
     #region Design-Time Ctor
 
@@ -283,14 +282,14 @@ public sealed class MainViewModel : ViewModelBase
 
         SelectedProject = p1;
 
-        _solutionConfiguration = new Common.Configuration.SolutionConfiguration();
+        _solutionConfiguration = new SolutionConfiguration();
     }
 #endif
 
     #endregion
 
 
-    public MainViewModel(DTE2 dte, Common.Configuration.SolutionConfiguration solutionConfiguration)
+    public MainViewModel(DTE2 dte, SolutionConfiguration solutionConfiguration)
     {
         ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -323,7 +322,7 @@ public sealed class MainViewModel : ViewModelBase
                     }) ??
                     new ProjectConfiguration();
 
-                var projectViewModel = new ProjectViewModel((EnvDTE.Project)dteProject, projectConfiguration.Files)
+                var projectViewModel = new ProjectViewModel(dteProject, projectConfiguration.Files)
                 {
                     IsEnabled = projectConfiguration.IsEnabled,
                     IncludeSubDirectories = projectConfiguration.IncludeSubDirectories,

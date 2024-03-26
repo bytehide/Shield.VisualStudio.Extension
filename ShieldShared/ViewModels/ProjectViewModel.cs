@@ -246,8 +246,7 @@ public class ProjectViewModel : ViewModelBase
 
         FolderName = Path.GetDirectoryName(project.UniqueName);
 
-        var properties = ThreadHelper.JoinableTaskFactory.Run(async () =>
-            await Project.GetEvaluatedPropertiesAsync());
+        var properties = ThreadHelper.JoinableTaskFactory.Run(project.GetEvaluatedPropertiesAsync);
 
         properties.TryGetValue("TargetPath", out var targetPath);
 

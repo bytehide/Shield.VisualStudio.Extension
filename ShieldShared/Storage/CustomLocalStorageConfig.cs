@@ -10,14 +10,14 @@ public class CustomLocalStorageConfig : ISecureLocalStorageConfig
     public CustomLocalStorageConfig(string defaultPath, string applicationName)
     {
         DefaultPath = defaultPath ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        ApplicationName = ApplicationName;
+        ApplicationName = applicationName;
         StoragePath = Path.Combine(DefaultPath, applicationName);
     }
 
     public CustomLocalStorageConfig(string defaultPath, string applicationName, string key)
     {
         DefaultPath = defaultPath ?? Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        ApplicationName = ApplicationName;
+        ApplicationName = applicationName;
         StoragePath = Path.Combine(DefaultPath, applicationName);
         BuildLocalSecureKey = () => key;
     }

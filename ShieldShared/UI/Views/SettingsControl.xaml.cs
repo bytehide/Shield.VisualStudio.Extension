@@ -121,6 +121,7 @@ public partial class SettingsControl
 
         var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
                    new ShieldConfiguration();
+
         dynamic runConfigurationSelected = ProjectRunCombo.SelectedItem;
 
         data.Name = $"{ProjectNameBox.Text}";
@@ -132,7 +133,7 @@ public partial class SettingsControl
 
         LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-        var saved = FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+        _ = FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
             JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
 
         ViewModelBase.ProjectChangedHandler.Invoke(Payload);

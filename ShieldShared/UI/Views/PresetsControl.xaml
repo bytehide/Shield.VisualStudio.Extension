@@ -29,6 +29,11 @@
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     HorizontalContentAlignment="Center"
                     TabStripPlacement="Top">
+            <TabItem x:Name="GhostTab"
+                     Header="Ghost"
+                     Visibility="Hidden">
+                <!-- for some reason this is necessary -->
+            </TabItem>
             <TabItem x:Name="MaximumTab"
                      Header="Maximum"
                      MouseLeftButtonUp="OnSelectedTab">

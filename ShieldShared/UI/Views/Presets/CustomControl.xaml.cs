@@ -36,6 +36,8 @@ public partial class CustomControl
         if (payload == null) return;
 
         Payload = payload;
+
+        SaveConfiguration();
         LoadDataAsync().GetAwaiter();
     }
 
@@ -84,7 +86,6 @@ public partial class CustomControl
         MessageBox.Show("Error while fetching data from server");
     }
 
-
     private void SaveConfiguration()
     {
         try
@@ -96,12 +97,13 @@ public partial class CustomControl
 
             var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
                        new ShieldConfiguration();
+
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
-            var custom = EPresetType.Custom.ToFriendlyString();
-            if (data.Preset == custom) return;
+            var preset = EPresetType.Custom.ToFriendlyString();
+            if (data.Preset == preset) return;
 
-            data.Preset = custom;
+            data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,

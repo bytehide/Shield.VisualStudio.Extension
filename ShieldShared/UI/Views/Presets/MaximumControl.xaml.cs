@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using ShieldVSExtension.Common;
-using ShieldVSExtension.Common.Extensions;
+﻿using System.Windows;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Models;
+using ShieldVSExtension.Common;
 using ShieldVSExtension.Storage;
 using ShieldVSExtension.ViewModels;
+using ShieldVSExtension.Common.Extensions;
+using System.Diagnostics;
 
 namespace ShieldVSExtension.UI.Views.Presets;
 
@@ -32,6 +32,7 @@ public partial class MaximumControl
         if (payload == null) return;
 
         Payload = payload;
+        SaveConfiguration();
     }
 
     private void OnSelected(EPresetType preset)
@@ -52,12 +53,13 @@ public partial class MaximumControl
 
             var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
                        new ShieldConfiguration();
+
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
-            var maximum = EPresetType.Maximum.ToFriendlyString();
-            if (data.Preset == maximum) return;
+            var preset = EPresetType.Maximum.ToFriendlyString();
+            if (data.Preset == preset) return;
 
-            data.Preset = maximum;
+            data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,

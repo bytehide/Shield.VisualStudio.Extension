@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using ShieldVSExtension.Common.Helpers;
 using ShieldVSExtension.Common.Models;
 using ShieldVSExtension.Common;
 using ShieldVSExtension.Storage;
 using ShieldVSExtension.ViewModels;
 using ShieldVSExtension.Common.Extensions;
+using System.Diagnostics;
 
 namespace ShieldVSExtension.UI.Views.Presets;
 
@@ -20,13 +20,14 @@ public partial class BalanceControl
     public BalanceControl()
     {
         InitializeComponent();
-        ViewModelBase.ProjectChangedHandler += OnProjectChanged;
+
+        ViewModelBase.ProjectChangedHandler += OnRefresh;
         ViewModelBase.TabSelectedHandler += OnSelected;
 
         Unloaded += OnFree;
     }
 
-    private void OnProjectChanged(ProjectViewModel payload)
+    private void OnRefresh(ProjectViewModel payload)
     {
         if (payload == null) return;
 
@@ -42,21 +43,22 @@ public partial class BalanceControl
 
     private void SaveConfiguration()
     {
-        Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
-        LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
-            .WithDefaultKeyBuilder());
-
         try
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+            LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
+                .WithDefaultKeyBuilder());
+
             var data = LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid()) ??
                        new ShieldConfiguration();
+
             if (string.IsNullOrWhiteSpace(data.ProjectToken)) return;
 
-            var balance = EPresetType.Balance.ToFriendlyString();
-            if (data.Preset == balance) return;
+            var preset = EPresetType.Balance.ToFriendlyString();
+            if (data.Preset == preset) return;
 
-            data.Preset = balance;
+            data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
             FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
@@ -71,7 +73,7 @@ public partial class BalanceControl
 
     private void OnFree(object sender, RoutedEventArgs e)
     {
-        ViewModelBase.ProjectChangedHandler -= OnProjectChanged;
+        ViewModelBase.ProjectChangedHandler -= OnRefresh;
         // ViewModelBase.TabSelectedHandler -= OnSelected;
     }
 }
