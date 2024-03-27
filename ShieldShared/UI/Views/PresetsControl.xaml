@@ -28,7 +28,8 @@
                     materialDesign:ColorZoneAssist.Mode="Custom"
                     Style="{StaticResource MaterialDesignFilledTabControl}"
                     HorizontalContentAlignment="Center"
-                    TabStripPlacement="Top">
+                    TabStripPlacement="Top"
+                    Focusable="False">
             <TabItem x:Name="GhostTab"
                      Header="Ghost"
                      Visibility="Hidden">
@@ -36,26 +37,31 @@
             </TabItem>
             <TabItem x:Name="MaximumTab"
                      Header="Maximum"
-                     MouseLeftButtonUp="OnSelectedTab">
+                     MouseLeftButtonUp="OnSelectedTab"
+                     IsTabStop="False">
                 <presets:MaximumControl />
             </TabItem>
             <TabItem x:Name="BalanceTab"
                      Header="Balance"
-                     MouseLeftButtonUp="OnSelectedTab">
+                     MouseLeftButtonUp="OnSelectedTab"
+                     IsTabStop="False">
                 <presets:BalanceControl />
             </TabItem>
             <TabItem x:Name="OptimizedTab"
                      Header="Optimized"
-                     MouseLeftButtonUp="OnSelectedTab">
+                     MouseLeftButtonUp="OnSelectedTab"
+                     IsTabStop="False">
                 <presets:OptimizedControl />
             </TabItem>
             <TabItem x:Name="CustomTab"
                      Header="Custom"
-                     MouseLeftButtonUp="OnSelectedTab">
+                     MouseLeftButtonUp="OnSelectedTab"
+                     IsTabStop="False">
                 <presets:CustomControl />
             </TabItem>
             <TabItem x:Name="SettingsTab"
-                     MouseLeftButtonUp="OnSelectedTab">
+                     MouseLeftButtonUp="OnSelectedTab"
+                     IsTabStop="False">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
                         <materialDesign:PackIcon Kind="CogOutline" Width="16" Height="16" />

@@ -109,6 +109,7 @@ public partial class PresetsControl
             case "Custom":
                 ViewModelBase.TabSelectedHandler.Invoke(EPresetType.Custom);
                 break;
+
             // case "Settings":
             //     ViewModelBase.TabSelectedHandler.Invoke(EPresetType.Settings);
             //     break;

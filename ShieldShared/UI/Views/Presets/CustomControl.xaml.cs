@@ -37,7 +37,6 @@ public partial class CustomControl
 
         Payload = payload;
 
-        SaveConfiguration();
         LoadDataAsync().GetAwaiter();
     }
 
@@ -51,8 +50,6 @@ public partial class CustomControl
 
     private async Task LoadDataAsync()
     {
-        if (Payload == null) return;
-
         await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
         LocalStorage = new SecureLocalStorage(new CustomLocalStorageConfig(null, Globals.ShieldLocalStorageName)
@@ -106,12 +103,13 @@ public partial class CustomControl
             data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-            FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+            // FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+            FileManager.WriteJsonShieldConfiguration(FileManager.GetParentDirFromFile(Payload.Project.FullName),
                 JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
         catch (System.Exception ex)
         {
-            LocalStorage.Remove(Payload.Project.UniqueName);
+            // LocalStorage?.Remove(Payload.Project?.UniqueName);
             Debug.WriteLine(ex.Message);
         }
     }
@@ -120,6 +118,8 @@ public partial class CustomControl
     {
         if (sender is not CheckBox { IsInitialized: true } control) return;
         if (!control.IsMouseOver) return;
+
+        if (Payload == null) return;
 
         ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -147,7 +147,8 @@ public partial class CustomControl
 
         LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-        FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+        // FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+        FileManager.WriteJsonShieldConfiguration(FileManager.GetParentDirFromFile(Payload.Project.FullName),
             JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
     }
 

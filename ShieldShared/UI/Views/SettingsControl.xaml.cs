@@ -66,7 +66,7 @@ public partial class SettingsControl
             if (configurationsTable is IEnumerable enumerableConfigurations)
             {
                 var runConfiguration = data.RunConfiguration;
-                var count = 1;
+                var count = 0;
 
                 foreach (var configuration in enumerableConfigurations)
                 {
@@ -133,7 +133,8 @@ public partial class SettingsControl
 
         LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-        _ = FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+        // _ = FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+        _ = FileManager.WriteJsonShieldConfiguration(FileManager.GetParentDirFromFile(Payload.Project.FullName),
             JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
 
         ViewModelBase.ProjectChangedHandler.Invoke(Payload);

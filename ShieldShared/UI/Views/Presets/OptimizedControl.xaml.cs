@@ -32,7 +32,6 @@ public partial class OptimizedControl
         if (payload == null) return;
 
         Payload = payload;
-        SaveConfiguration();
     }
 
     private void OnSelected(EPresetType preset)
@@ -62,12 +61,13 @@ public partial class OptimizedControl
             data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-            FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+            // FileManager.WriteJsonShieldConfiguration(Payload.Project.FolderName,
+            FileManager.WriteJsonShieldConfiguration(FileManager.GetParentDirFromFile(Payload.Project.FullName),
                 JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
         catch (System.Exception ex)
         {
-            LocalStorage.Remove(Payload.Project.UniqueName);
+            // LocalStorage?.Remove(Payload.Project?.UniqueName);
             Debug.WriteLine(ex.Message);
         }
     }

@@ -4,5 +4,6 @@ internal class SettingsViewModel : ProjectViewModel
 {
     public SettingsViewModel()
     {
+        // ...
     }
 }

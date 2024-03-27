@@ -74,7 +74,8 @@
                     HorizontalContentAlignment="Right"
                     TabStripPlacement="Bottom">
 
-            <TabItem Margin="5">
+            <TabItem Margin="5"
+                     IsTabStop="False">
                 <TabItem.Header>
                     <StackPanel Width="auto" Height="auto">
                         <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center"
@@ -226,7 +227,8 @@
                 </Grid>
             </TabItem>
 
-            <TabItem materialDesign:RippleAssist.IsDisabled="True">
+            <TabItem materialDesign:RippleAssist.IsDisabled="True"
+                     IsTabStop="False">
                 <TabItem.Header>
                     <StackPanel Width="auto" Height="auto">
                         <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center"
@@ -236,7 +238,8 @@
                 <views:AboutControl />
             </TabItem>
 
-            <TabItem materialDesign:RippleAssist.IsDisabled="True">
+            <TabItem materialDesign:RippleAssist.IsDisabled="True"
+                     IsTabStop="False">
                 <TabItem.Header>
                     <Button Click="OnClose"
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">

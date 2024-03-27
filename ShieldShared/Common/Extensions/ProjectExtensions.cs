@@ -88,7 +88,7 @@ public static class ProjectExtensions
         { CodeModelLanguageConstants.vsCMLanguageMC, "MC++" }, // Managed C++
         { CodeModelLanguageConstants.vsCMLanguageVB, "VB.NET" },
         { CodeModelLanguageConstants.vsCMLanguageVC, "VC++" }, // Visual C++
-        { EnvDTECodeModelLanguageConstants2.CMLanguageJSharp, "J#" },
+        { EnvDteCodeModelLanguageConstants2.CmLanguageJSharp, "J#" },
         { "{F2A71F9B-5D33-465A-A702-920D77279786}", "F#" },
     };
 

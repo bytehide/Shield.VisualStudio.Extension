@@ -61,12 +61,13 @@ public partial class BalanceControl
             data.Preset = preset;
             LocalStorage.Set(Payload.Project.UniqueName.ToUuid(), data);
 
-            FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+            // FileManager.WriteJsonShieldConfiguration(Payload.FolderName,
+            FileManager.WriteJsonShieldConfiguration(FileManager.GetParentDirFromFile(Payload.Project.FullName),
                 JsonHelper.Stringify(LocalStorage.Get<ShieldConfiguration>(Payload.Project.UniqueName.ToUuid())));
         }
         catch (System.Exception ex)
         {
-            LocalStorage.Remove(Payload.Project.UniqueName);
+            // LocalStorage?.Remove(Payload.Project?.UniqueName);
             Debug.WriteLine(ex.Message);
         }
     }

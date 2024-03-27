@@ -241,12 +241,14 @@ public class ProjectViewModel : ViewModelBase
         ThreadHelper.ThrowIfNotOnUIThread();
 
         Project = project;
-
         Name = Path.GetFileNameWithoutExtension(project.UniqueName);
-
         FolderName = Path.GetDirectoryName(project.UniqueName);
 
         var properties = ThreadHelper.JoinableTaskFactory.Run(project.GetEvaluatedPropertiesAsync);
+        if (properties == null)
+        {
+            return;
+        }
 
         properties.TryGetValue("TargetPath", out var targetPath);
 
